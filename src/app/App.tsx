@@ -11,6 +11,7 @@ import {
   UserProfile,
   WalkerProfile,
 } from '@/pages';
+import { Toaster } from '@/shared/ui';
 
 function App() {
 
@@ -34,6 +35,7 @@ function App() {
             <Route path='/explore' element={<Explore />} />
           </Route>
         </Routes>
+        <Toaster />
       </div>
     </>
   );
