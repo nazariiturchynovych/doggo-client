@@ -1,0 +1,1 @@
+export { PageLayout } from './layouts/page-layout/PageLayout.tsx';
