@@ -1,11 +1,11 @@
-export type BaseResult = {
+export type BaseResponse = {
   isSuccess: boolean;
   isFailure: boolean;
   errorMessage: string;
   exceptionMessage: string;
 };
 
-export type BaseResultWithData<Data> = {
+export type BaseResponseWithData<Data> = {
   isSuccess: boolean;
   isFailure: boolean;
   errorMessage: string;

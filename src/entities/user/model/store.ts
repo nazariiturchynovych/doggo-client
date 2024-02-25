@@ -4,19 +4,19 @@ import {
   SignInGoogleRequestProps,
   SignInRequestProps,
 } from '@/shared/api/auth-api/models/requests.ts';
-import { BaseResultWithData } from '@/shared/api/result';
+import { BaseResponseWithData } from '@/shared/api/result';
 import { SignInDto } from '@/shared/api/auth-api/models/dtos.ts';
 import { authenticationService } from '@/shared/api/auth-api';
-import { User } from '@/shared/entities/user/model/models.ts';
+import { User } from '@/entities/user/model/models.ts';
 import { Guid } from 'typescript-guid';
 
 type UserState = {
   user: User;
   setUser: (user: User) => void;
   isAuth: boolean;
-  signIn: (props: SignInRequestProps) => Promise<BaseResultWithData<SignInDto>>;
-  signInGoogle: (props: SignInGoogleRequestProps) => Promise<BaseResultWithData<SignInDto>>;
-  signInFacebook: (props: SignInFacebookRequestProps) => Promise<BaseResultWithData<SignInDto>>;
+  signIn: (props: SignInRequestProps) => Promise<BaseResponseWithData<SignInDto>>;
+  signInGoogle: (props: SignInGoogleRequestProps) => Promise<BaseResponseWithData<SignInDto>>;
+  signInFacebook: (props: SignInFacebookRequestProps) => Promise<BaseResponseWithData<SignInDto>>;
   signOut: () => void
 };
 

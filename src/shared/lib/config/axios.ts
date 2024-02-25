@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { BaseResultWithData } from '@/shared/api/result';
+import { BaseResponseWithData } from '@/shared/api/result';
 import { SignInDto } from '@/shared/api/auth-api/models/dtos.ts';
 
 const $api = axios.create({
@@ -31,7 +31,7 @@ $api.interceptors.response.use(
           refreshToken: localStorage.getItem('refreshToken') || '',
         };
 
-        const { data } = await axios.post<BaseResultWithData<SignInDto>>(
+        const { data } = await axios.post<BaseResponseWithData<SignInDto>>(
           `${import.meta.env.VITE_DOGGO_BASE_URL}/Authentication/Refresh-token`,
           params,
         );
