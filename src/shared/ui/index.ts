@@ -1,2 +1,4 @@
-export { Button } from './button.tsx';
-export { Input } from './input.tsx';
+export * from './button.tsx';
+export * from './input.tsx';
+export * from './loader.tsx';
+export * from './form.tsx'

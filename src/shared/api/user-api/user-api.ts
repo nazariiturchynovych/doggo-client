@@ -8,6 +8,7 @@ import {
   GetUserRequestProps,
   UpdateUserRequestProps,
 } from '@/shared/api/user-api/models/requests.ts';
+import { UserDto } from '@/shared/api/user-api/models/dtos.ts';
 
 
 export interface UserApiService {
@@ -23,7 +24,7 @@ export class UserApi implements UserApiService  {
 
   async getUser(props: GetUserRequestProps) {
     const query = `/User/user${props.id ? `/?id=${props.id}` : ''}`;
-    const { data } = await $api.get<BaseResponseWithData<SignInDto>>(query);
+    const { data } = await $api.get<BaseResponseWithData<UserDto>>(query);
     return data;
   }
 

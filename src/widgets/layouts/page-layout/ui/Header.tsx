@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from '@/shared/ui';
 import BurgerButton from '@/widgets/layouts/page-layout/ui/BurgerButton.tsx';
+import { Link } from 'react-router-dom';
 
 
 export const Header: React.FC = () => {
@@ -20,7 +21,11 @@ export const Header: React.FC = () => {
       <div>User Profile</div>
       <div>Schedule</div>
     </div>
-    <Button variant='outline' className='hidden sm:block sm:text-black sm:shadow-lg'>Sign In</Button>
+    <Button variant='outline' className='hidden sm:block sm:text-black sm:shadow-lg'>
+      <Link to={'sign-in'}>
+        Sign In
+      </Link>
+    </Button>
     <BurgerButton onClick={onClick} />
   </div>;
 };

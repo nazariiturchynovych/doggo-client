@@ -6,13 +6,15 @@ import {
 } from '@/shared/api/auth-api/models/requests.ts';
 import { BaseResponseWithData } from '@/shared/api/result';
 import { SignInDto } from '@/shared/api/auth-api/models/dtos.ts';
-import { authenticationService } from '@/shared/api/auth-api';
+import { authenticationApi } from '@/shared/api/auth-api';
 import { User } from '@/entities/user/model/models.ts';
 import { Guid } from 'typescript-guid';
+import { GetUserRequestProps, userApi, UserDto } from '@/shared/api/user-api';
 
 type UserState = {
   user: User;
   setUser: (user: User) => void;
+  getCurrentUser: () => Promise<BaseResponseWithData<UserDto>>
   isAuth: boolean;
   signIn: (props: SignInRequestProps) => Promise<BaseResponseWithData<SignInDto>>;
   signInGoogle: (props: SignInGoogleRequestProps) => Promise<BaseResponseWithData<SignInDto>>;
@@ -34,9 +36,23 @@ export const useUserStore = create<UserState>()((set) => ({
         set(() => {
           return { user: user };
         }),
+      getCurrentUser: async () => {
+        const reqProps: GetUserRequestProps = {
+          id: undefined,
+        };
+        const response = await userApi.getUser(reqProps);
+
+        if (response.isSuccess) {
+          set(() => ({
+            user: response.data,
+          }));
+        }
+        return response;
+
+      },
       isAuth: false,
       signIn: async (props) => {
-        const response = await authenticationService.signIn(props);
+        const response = await authenticationApi.signIn(props);
         if (response.isSuccess) {
           localStorage.setItem('token', response.data.token);
           localStorage.setItem('refreshToken', response.data.refreshToken);
@@ -47,7 +63,7 @@ export const useUserStore = create<UserState>()((set) => ({
         return response;
       },
       signInGoogle: async (props) => {
-        const response = await authenticationService.signInGoogle(props);
+        const response = await authenticationApi.signInGoogle(props);
         if (response.isSuccess) {
           localStorage.setItem('token', response.data.token);
           localStorage.setItem('refreshToken', response.data.refreshToken);
@@ -59,7 +75,7 @@ export const useUserStore = create<UserState>()((set) => ({
       },
 
       signInFacebook: async (props) => {
-        const response = await authenticationService.signInFacebook(props);
+        const response = await authenticationApi.signInFacebook(props);
         if (response.isSuccess) {
           localStorage.setItem('token', response.data.token);
           localStorage.setItem('refreshToken', response.data.refreshToken);
