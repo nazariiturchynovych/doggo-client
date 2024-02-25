@@ -13,7 +13,7 @@ import {
   SignUpRequestProps,
 } from '@/shared/api/auth-api/models/requests.ts';
 
-export interface AuthenticationAPI {
+export interface AuthenticationApiService {
   signUp: (props: SignUpRequestProps) => Promise<BaseResponse>;
   sendEmailVerificationToken: (props: SendEmailVerificationTokenRequestProps) => Promise<BaseResponse>;
   confirmEmail: (props: ConfirmEmailRequestProps) => Promise<BaseResponse>;
@@ -25,59 +25,59 @@ export interface AuthenticationAPI {
   confirmResetPassword: (props: ConfirmResetPasswordRequestProps) => Promise<BaseResponse>;
 }
 
-export class AuthenticationService implements AuthenticationAPI {
+export class AuthenticationApi implements AuthenticationApiService {
 
   async signUp(props: SignUpRequestProps) {
-    const signInQuery = '/Authentication/sign-up';
-    const { data } = await $api.post<BaseResponseWithData<SignInDto>>(signInQuery, props);
+    const query = '/Authentication/sign-up';
+    const { data } = await $api.post<BaseResponseWithData<SignInDto>>(query, props);
     return data;
   }
 
   async sendEmailVerificationToken(props: SendEmailVerificationTokenRequestProps) {
-    const signInQuery = '/Authentication/sign-up/send-token';
-    const { data } = await $api.post<BaseResponseWithData<SignInDto>>(signInQuery, props);
+    const query = '/Authentication/sign-up/send-token';
+    const { data } = await $api.post<BaseResponseWithData<SignInDto>>(query, props);
     return data;
   }
 
   async confirmEmail(props: ConfirmEmailRequestProps) {
-    const signInQuery = '/Authentication/sign-up/confirm-email';
-    const { data } = await $api.post<BaseResponseWithData<SignInDto>>(signInQuery, props);
+    const query = '/Authentication/sign-up/confirm-email';
+    const { data } = await $api.post<BaseResponseWithData<SignInDto>>(query, props);
     return data;
   }
 
   async signIn(props: SignInRequestProps) {
-    const signInQuery = '/Authentication/sign-in';
-    const { data } = await $api.post<BaseResponseWithData<SignInDto>>(signInQuery, props);
+    const query = '/Authentication/sign-in';
+    const { data } = await $api.post<BaseResponseWithData<SignInDto>>(query, props);
     return data;
   }
 
   async signInGoogle(props: SignInGoogleRequestProps) {
-    const signInQuery = '/Authentication/sign-in-google';
-    const { data } = await $api.post<BaseResponseWithData<SignInDto>>(signInQuery, props);
+    const query = '/Authentication/sign-in-google';
+    const { data } = await $api.post<BaseResponseWithData<SignInDto>>(query, props);
     return data;
   }
 
   async signInFacebook(props: SignInFacebookRequestProps) {
-    const signInQuery = '/Authentication/sign-in-facebook';
-    const { data } = await $api.post<BaseResponseWithData<SignInDto>>(signInQuery, props);
+    const query = '/Authentication/sign-in-facebook';
+    const { data } = await $api.post<BaseResponseWithData<SignInDto>>(query, props);
     return data;
   }
 
   async refreshToken(props: RefreshTokenRequestProps) {
-    const signInQuery = '/Authentication/refresh-token';
-    const { data } = await $api.post<BaseResponseWithData<SignInDto>>(signInQuery, props);
+    const query = '/Authentication/refresh-token';
+    const { data } = await $api.post<BaseResponseWithData<SignInDto>>(query, props);
     return data;
   }
 
   async sendResetPasswordConfirmationToken(props: SendResetPasswordConfirmationTokenRequestProps) {
-    const signInQuery = '/Authentication/password';
-    const { data } = await $api.post<BaseResponse>(signInQuery, props);
+    const query = '/Authentication/password';
+    const { data } = await $api.post<BaseResponse>(query, props);
     return data;
   }
 
   async confirmResetPassword(props: ConfirmResetPasswordRequestProps) {
-    const signInQuery = '/Authentication/password/token';
-    const { data } = await $api.put<BaseResponse>(signInQuery, props);
+    const query = '/Authentication/password/token';
+    const { data } = await $api.put<BaseResponse>(query, props);
     return data;
   }
 

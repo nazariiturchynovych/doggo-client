@@ -1,4 +1,4 @@
-import { AuthenticationService } from '@/shared/api/auth-api/authetication-api.ts';
+import { AuthenticationApi } from '@/shared/api/auth-api/authetication-api.ts';
 
 
-export const authenticationService = new AuthenticationService();
+export const authenticationService = new AuthenticationApi();

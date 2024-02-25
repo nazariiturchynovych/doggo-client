@@ -10,7 +10,7 @@ import {
 } from '@/shared/api/user-api/models/requests.ts';
 
 
-export interface UserAPI {
+export interface UserApiService {
   getUser: (props: GetUserRequestProps) => Promise<BaseResponse>;
   getPageOfUsers: (props: GetPageOfUsersRequestProps) => Promise<BaseResponse>;
   updateUser: (props: UpdateUserRequestProps) => Promise<BaseResponse>;
@@ -19,47 +19,47 @@ export interface UserAPI {
   addUserPersonalIdentifier: (props: AddUserPersonalIdentifierRequestProps) => Promise<BaseResponse>;
 }
 
-export class UserService implements UserAPI {
+export class UserApi implements UserApiService  {
 
   async getUser(props: GetUserRequestProps) {
-    const signInQuery = `/User/sign-up/?id=${props.id ?? ''}`;
-    const { data } = await $api.get<BaseResponseWithData<SignInDto>>(signInQuery);
+    const query = `/User/user${props.id ? `/?id=${props.id}` : ''}`;
+    const { data } = await $api.get<BaseResponseWithData<SignInDto>>(query);
     return data;
   }
 
   async getPageOfUsers(props: GetPageOfUsersRequestProps) {
-    const signInQuery = `/User/users
+    const query = `/User/users
     ?${props.nameSearchTerm ?? `nameSearchTerm=${props.nameSearchTerm}`}
     &${props.sortColumn ?? `sortColumn=${props.sortColumn}`}
     &${props.sortOrder ?? `sortOrder=${props.sortOrder}`}
     &pageCount=${props.pageCount}
     &page=${props.pageCount}`;
 
-    const { data } = await $api.get<BaseResponseWithData<SignInDto>>(signInQuery);
+    const { data } = await $api.get<BaseResponseWithData<SignInDto>>(query);
     return data;
   }
 
   async updateUser(props: UpdateUserRequestProps) {
-    const signInQuery = '/User/user';
-    const { data } = await $api.put<BaseResponseWithData<SignInDto>>(signInQuery, props);
+    const query = '/User/user';
+    const { data } = await $api.put<BaseResponseWithData<SignInDto>>(query, props);
     return data;
   }
 
   async changePassword(props: ChangePasswordRequestProps) {
-    const signInQuery = 'User/password';
-    const { data } = await $api.put<BaseResponseWithData<SignInDto>>(signInQuery, props);
+    const query = 'User/password';
+    const { data } = await $api.put<BaseResponseWithData<SignInDto>>(query, props);
     return data;
   }
 
   async deleteUser(props: DeleteUserRequestProps) {
-    const signInQuery = `/User/users/${props.id ?? ''}`;
-    const { data } = await $api.delete<BaseResponseWithData<SignInDto>>(signInQuery);
+    const query = `/User/user/${props.id ?? ''}`;
+    const { data } = await $api.delete<BaseResponseWithData<SignInDto>>(query);
     return data;
   }
 
   async addUserPersonalIdentifier(props: AddUserPersonalIdentifierRequestProps) {
-    const signInQuery = '/User/personal-identifier';
-    const { data } = await $api.post<BaseResponseWithData<SignInDto>>(signInQuery, props);
+    const query = '/User/personal-identifier';
+    const { data } = await $api.post<BaseResponseWithData<SignInDto>>(query, props);
     return data;
   }
 
