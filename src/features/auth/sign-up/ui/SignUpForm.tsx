@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
@@ -12,7 +12,7 @@ import {
   FormMessage, Input, Loader,
 } from '@/shared/ui';
 import { useSignUp } from '@/features/auth/sign-up/lib/hooks';
-import { useGetCurrentUser, useSignInUser } from '@/features/auth/sign-in';
+import { LoginFacebook, LoginGoogle, useGetCurrentUser, useSignInUser } from '@/features/auth/sign-in';
 import { SignUpSchema } from '@/features/auth/sign-up/models/models.ts';
 import { useToast } from '@/shared/ui/use-toast.ts';
 
@@ -150,6 +150,22 @@ function SignUpForm() {
             'Sign Up'
           )}
         </Button>
+        <div className='flex flex-col'>
+          <p>
+            Already have account?{' '}
+            <Button variant='link' className=' px-0 text-base'>
+              <Link to={'/sign-in'}>Sign In</Link>
+            </Button>
+          </p>
+          <div
+            className="relative my-4 flex w-full items-center justify-center before:flex-1 before:border-[1px] before:border-b-black before:content-[''] after:flex-1 after:border-[1px] after:border-b-black after:content-['']">
+            <p className='mx-4 mb-0 text-center text-xl font-semibold dark:text-white'>Or</p>
+          </div>
+          <div className='flex flex-row items-center justify-center gap-2 lg:justify-start'>
+            <LoginGoogle />
+            <LoginFacebook />
+          </div>
+        </div>
       </form>
     </Form>
   );

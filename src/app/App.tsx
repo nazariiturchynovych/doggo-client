@@ -5,7 +5,7 @@ import {
   DogOwnerProfile,
   Explore,
   ForgotPassword,
-  ResetPassword,
+  ResetPassword, Schedule,
   SignIn,
   SignUp,
   UserProfile,
@@ -23,16 +23,15 @@ function App() {
             <Route path='/sign-in' element={<SignIn />} />
             <Route path='/sign-up' element={<SignUp />} />
             <Route path='/forgot-password' element={<ForgotPassword />} />
-            <Route path='/reset-password/:id' element={<ResetPassword />} />
+            <Route path='/reset-password' element={<ResetPassword />} />
 
-            <Route path='/explore' element={<Explore />} />
-            <Route path='/user-profile/id' element={<UserProfile />} />
-            <Route path='/walker-profile/id' element={<WalkerProfile />} />
-            <Route path='/dog-owner-profile/id' element={<DogOwnerProfile />} />
             <Route path='/' element={<Explore />} />
             <Route path='/explore' element={<Explore />} />
-            <Route path='/explore' element={<Explore />} />
-            <Route path='/explore' element={<Explore />} />
+            <Route path='/user-profile' element={<UserProfile />} />
+            <Route path='/user-profile/:id' element={<UserProfile />} />
+            <Route path='/walker-profile/:id' element={<WalkerProfile />} />
+            <Route path='/dog-owner-profile/:id' element={<DogOwnerProfile />} />
+            <Route path='/schedule' element={<Schedule />} />
           </Route>
         </Routes>
         <Toaster />
