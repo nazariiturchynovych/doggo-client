@@ -9,12 +9,12 @@ import { SignInDto } from '@/shared/api/auth-api/models/dtos.ts';
 import { authenticationApi } from '@/shared/api/auth-api';
 import { User } from '@/entities/user/model/models.ts';
 import { Guid } from 'typescript-guid';
-import { GetUserRequestProps, userApi, UserDto } from '@/shared/api/user-api';
+import { GetUserRequestProps, userApi } from '@/shared/api/user-api';
 
 type UserState = {
   user: User;
   setUser: (user: User) => void;
-  getCurrentUser: () => Promise<BaseResponseWithData<UserDto>>
+  getCurrentUser: () => Promise<BaseResponseWithData<User>>
   isAuth: boolean;
   signIn: (props: SignInRequestProps) => Promise<BaseResponseWithData<SignInDto>>;
   signInGoogle: (props: SignInGoogleRequestProps) => Promise<BaseResponseWithData<SignInDto>>;
@@ -31,7 +31,7 @@ export const useUserStore = create<UserState>()((set) => ({
         email: '',
         dogOwnerId: null,
         walkerId: null,
-      },
+      }, //TODO add phone number
       setUser: (user) =>
         set(() => {
           return { user: user };

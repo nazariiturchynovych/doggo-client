@@ -23,10 +23,3 @@ export const useSignInUserGoogle = () => {
     mutationFn: async (props: SignInGoogleRequestProps) => await func(props),
   });
 };
-
-export const useGetCurrentUser = () => {
-  const func = useUserStore(state => state.getCurrentUser);
-  return useMutation({
-    mutationFn: async () => await func(),
-  });
-};

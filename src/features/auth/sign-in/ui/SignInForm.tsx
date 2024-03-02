@@ -12,7 +12,8 @@ import {
 } from '@/shared/ui/form.tsx';
 import { Button, Input, Loader } from '@/shared/ui';
 import { SignInSchema } from '@/features/auth/sign-in/models/models.ts';
-import { useGetCurrentUser, useSignInUser } from '@/features/auth/sign-in/lib/hooks';
+import { useSignInUser } from '@/features/auth/sign-in/lib/hooks';
+import { useGetCurrentUser } from '@/shared/lib/hooks/user';
 import { LoginGoogle, LoginFacebook } from '@/features/auth/sign-in';
 
 function SignInForm() {
