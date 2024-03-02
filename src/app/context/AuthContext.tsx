@@ -34,7 +34,7 @@ const AuthContext: React.FC<AuthProviderProps> = ({ children }) => {
     if (!isAuth) {
       navigate('/sign-in');
     }
-
+    // eslint-disable-next-line no-use-before-define
   }, [isAuth]);
 
   return <>{children}</>;

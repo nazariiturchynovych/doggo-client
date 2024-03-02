@@ -1,9 +1,9 @@
 import { create } from 'zustand';
 import { BaseResponse, BaseResponseWithData } from '@/shared/api/result';
 import { DogOwner } from './models';
-import { CreateDogOwnerRequestProps, GetDogOwnerRequestProps, walkerApi } from '@/shared/api/walker-api';
 import { Guid } from 'typescript-guid';
 import { devtools } from 'zustand/middleware';
+import { dogOwnerApi, CreateDogOwnerRequestProps, GetDogOwnerRequestProps } from '@/shared/api/dog-owner-api';
 
 type DogOwnerState = {
   dogOwner: DogOwner;
@@ -22,21 +22,21 @@ export const useDogOwnerStore = create<DogOwnerState>()(devtools((set) => ({
         jobRequestIds: [],
         jobIds: []
       },
-      setDogOwner: (walker) =>
+      setDogOwner: (dogOwner) =>
         set(() => {
-          return { walker: walker };
+          return { dogOwner: dogOwner };
         }),
 
       createDogOwner: async (reqProps: CreateDogOwnerRequestProps) => {
-        let response = await walkerApi.createDogOwner(reqProps);
+        let response = await dogOwnerApi.createDogOwner(reqProps);
 
         if (response.isSuccess) {
           const reqProps: GetDogOwnerRequestProps = {
             id: undefined,
           };
-          const getResponse = await walkerApi.getDogOwner(reqProps);
+          const getResponse = await dogOwnerApi.getDogOwner(reqProps);
           set(() => ({
-            walker: getResponse.data,
+            dogOwner: getResponse.data,
           }));
           response = getResponse;
         }
@@ -46,11 +46,11 @@ export const useDogOwnerStore = create<DogOwnerState>()(devtools((set) => ({
         const reqProps: GetDogOwnerRequestProps = {
           id: undefined,
         };
-        const response = await walkerApi.getDogOwner(reqProps);
+        const response = await dogOwnerApi.getDogOwner(reqProps);
 
         if (response.isSuccess) {
           set(() => ({
-            walker: response.data,
+            dogOwner: response.data,
           }));
         }
         return response;
