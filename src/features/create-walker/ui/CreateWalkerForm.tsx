@@ -8,12 +8,12 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
+  FormMessage, Textarea,
 } from '@/shared/ui';
-import { Button, Input, Loader } from '@/shared/ui';
-import { useCreateWalker } from '@/features/create-walker/lib/hooks';
+import { Button, Loader } from '@/shared/ui';
 import { WalkerSchema } from '@/features/create-walker/models/models.ts';
 import { authenticationApi, RefreshTokenRequestProps } from '@/shared/api/auth-api';
+import { useCreateWalker } from '@/features/create-walker/lib/hooks';
 
 const WalkerForm = () => {
   const navigate = useNavigate();
@@ -42,8 +42,6 @@ const WalkerForm = () => {
       if (data.isSuccess) {
         localStorage.setItem('token', data.data.token);
         localStorage.setItem('refreshToken', data.data.refreshToken);
-
-        console.log(data.data);
       }
     }
 
@@ -51,6 +49,7 @@ const WalkerForm = () => {
   };
 
   return (
+    <div className='flex justify-center items-center p-5 shadow-md h-auto'>
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(handleSubmit)}
@@ -62,10 +61,9 @@ const WalkerForm = () => {
             <FormItem>
               <FormLabel className="shad-form_label">Write about your skills</FormLabel>
               <FormControl>
-                <Input
-                  placeholder="Training, frirst aid, etc."
-                  type="text"
-                  className="shad-input"
+                <Textarea
+                  placeholder="Training, first aid, etc."
+                  className="resize-none"
                   {...field}
                 />
               </FormControl>
@@ -80,10 +78,9 @@ const WalkerForm = () => {
             <FormItem>
               <FormLabel className="shad-form_label">Write bout yourself</FormLabel>
               <FormControl>
-                <Input
-                  placeholder="Love corgies, cats, pandas"
-                  type="text"
-                  className="shad-input"
+                <Textarea
+                  placeholder="Tell us a little bit about yourself"
+                  className="resize-none"
                   {...field}
                 />
               </FormControl>
@@ -105,6 +102,7 @@ const WalkerForm = () => {
         </div>
       </form>
     </Form>
+    </div>
   );
 };
 

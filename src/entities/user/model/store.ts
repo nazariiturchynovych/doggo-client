@@ -10,19 +10,21 @@ import { authenticationApi } from '@/shared/api/auth-api';
 import { User } from '@/entities/user/model/models.ts';
 import { Guid } from 'typescript-guid';
 import { GetUserRequestProps, userApi } from '@/shared/api/user-api';
+import { devtools } from 'zustand/middleware';
 
 type UserState = {
   user: User;
   setUser: (user: User) => void;
   getCurrentUser: () => Promise<BaseResponseWithData<User>>
   isAuth: boolean;
+  setIsAuth: (state: boolean) => void;
   signIn: (props: SignInRequestProps) => Promise<BaseResponseWithData<SignInDto>>;
   signInGoogle: (props: SignInGoogleRequestProps) => Promise<BaseResponseWithData<SignInDto>>;
   signInFacebook: (props: SignInFacebookRequestProps) => Promise<BaseResponseWithData<SignInDto>>;
   signOut: () => void
 };
 
-export const useUserStore = create<UserState>()((set) => ({
+export const useUserStore = create<UserState>()(devtools((set) => ({
       user: {
         age: 0,
         id: Guid.EMPTY,
@@ -51,13 +53,17 @@ export const useUserStore = create<UserState>()((set) => ({
 
       },
       isAuth: false,
+      setIsAuth: (state) =>
+        set(() => {
+          return { isAuth: state };
+        }),
       signIn: async (props) => {
         const response = await authenticationApi.signIn(props);
         if (response.isSuccess) {
           localStorage.setItem('token', response.data.token);
           localStorage.setItem('refreshToken', response.data.refreshToken);
           set(() => ({
-            isAuth: response.isSuccess,
+            isAuth: true,
           }));
         }
         return response;
@@ -68,7 +74,7 @@ export const useUserStore = create<UserState>()((set) => ({
           localStorage.setItem('token', response.data.token);
           localStorage.setItem('refreshToken', response.data.refreshToken);
           set(() => ({
-            isAuth: response.isSuccess,
+            isAuth: true,
           }));
         }
         return response;
@@ -80,7 +86,7 @@ export const useUserStore = create<UserState>()((set) => ({
           localStorage.setItem('token', response.data.token);
           localStorage.setItem('refreshToken', response.data.refreshToken);
           set(() => ({
-            isAuth: response.isSuccess,
+            isAuth: true,
           }));
         }
         return response;
@@ -93,5 +99,5 @@ export const useUserStore = create<UserState>()((set) => ({
         }));
       },
     }),
-  )
+  ))
 ;

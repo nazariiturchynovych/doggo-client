@@ -22,7 +22,7 @@ export const Header: React.FC = () => {
       <Link to={'/explore'}>
         <div>Explore</div>
       </Link>
-      <Link to={'/user-profile'}>
+      <Link to={'/user'}>
         <div>Profile</div>
       </Link>
       <Link to={'/schedule'}>

@@ -9,6 +9,7 @@ type AuthProviderProps = {
 
 const AuthContext: React.FC<AuthProviderProps> = ({ children }) => {
   const isAuth = useUserStore((state) => state.isAuth);
+  const setIsAuth = useUserStore((state) => state.setIsAuth);
   const setUser = useUserStore((state) => state.setUser);
   const { mutateAsync: getCurrentUser } = useGetCurrentUser();
   const navigate = useNavigate();
@@ -17,8 +18,8 @@ const AuthContext: React.FC<AuthProviderProps> = ({ children }) => {
     const getUser = async () => {
       try {
         const result = await getCurrentUser();
-        if (result.data) {
-          console.log(result.data);
+        if (result.isSuccess) {
+          setIsAuth(true)
           setUser(result.data);
         }
       } catch (error) {
@@ -33,7 +34,6 @@ const AuthContext: React.FC<AuthProviderProps> = ({ children }) => {
     if (!isAuth) {
       navigate('/sign-in');
     }
-    console.log('in auth context');
 
   }, [isAuth]);
 

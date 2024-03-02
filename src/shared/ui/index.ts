@@ -6,3 +6,5 @@ export * from './toaster.tsx';
 export * from './toast.tsx';
 export * from './use-toast.ts';
 export * from './avatar.tsx';
+export * from './textarea.tsx';
+export * from './label.tsx';

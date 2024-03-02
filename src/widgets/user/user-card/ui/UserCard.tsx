@@ -1,7 +1,7 @@
 import React from 'react';
 import { User } from '@/entities/user';
 import { Avatar, AvatarFallback, AvatarImage } from '@/shared/ui';
-import { createAvatarFallback } from '@/widgets/user-profile/lib';
+import { createAvatarFallback } from '@/widgets/user/user-card/lib';
 
 type UserCardProps = {
   user: User
