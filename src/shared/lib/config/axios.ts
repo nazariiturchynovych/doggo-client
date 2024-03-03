@@ -39,7 +39,6 @@ $api.interceptors.response.use(
           localStorage.setItem('token', data.data.token);
           localStorage.setItem('refreshToken', data.data.refreshToken);
 
-          console.log(data.data);
           return $api.request(originalRequest);
         }
       } catch (e) {

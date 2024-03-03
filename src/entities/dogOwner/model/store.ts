@@ -18,9 +18,6 @@ export const useDogOwnerStore = create<DogOwnerState>()(devtools((set) => ({
         userId: Guid.EMPTY,
         address: '',
         district: '',
-        dogIds: [],
-        jobRequestIds: [],
-        jobIds: []
       },
       setDogOwner: (dogOwner) =>
         set(() => {

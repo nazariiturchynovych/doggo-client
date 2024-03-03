@@ -48,6 +48,7 @@ export const useUserStore = create<UserState>()(devtools((set) => ({
           set(() => ({
             user: response.data,
           }));
+
         }
         return response;
 

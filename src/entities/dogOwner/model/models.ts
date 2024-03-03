@@ -5,7 +5,4 @@ export type DogOwner = {
   userId: Guid | null,
   address: string,
   district: string,
-  dogIds: Guid[],
-  jobRequestIds: Guid[],
-  jobIds: Guid[]
 };
