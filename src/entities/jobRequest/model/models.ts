@@ -4,7 +4,7 @@ export type JobRequest = {
   id: Guid,
   requiredAge: number,
   isPersonalIdentifierRequired: boolean,
-  requiredSchedule: number,
+  requiredSchedule: {from: Date, to: Date},
   description: string,
   dogOwnerId: Guid,
   paymentTo: number,

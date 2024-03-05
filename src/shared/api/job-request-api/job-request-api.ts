@@ -1,4 +1,4 @@
-import { BaseResponse, BaseResponseWithData } from '@/shared/api/result';
+import { BaseResponse, BaseResponseWithData, PageOf } from '@/shared/api/result';
 import $api from '@/shared/lib/config/axios.ts';
 import {
   CreateJobRequestRequestProps,
@@ -13,10 +13,39 @@ import { JobRequest } from '@/entities/jobRequest/model/models.ts';
 export interface JobRequestApiService {
   createJobRequest: (props: CreateJobRequestRequestProps) => Promise<BaseResponse>;
   getJobRequest: (props: GetJobRequestRequestProps) => Promise<BaseResponseWithData<JobRequest>>;
-  getPageOfJobRequests: (props: GetPageOfJobRequestsRequestProps) => Promise<BaseResponseWithData<JobRequest[]>>;
+  getPageOfJobRequests: (props: GetPageOfJobRequestsRequestProps) => Promise<BaseResponseWithData<PageOf<JobRequest>>>;
   getDogOwnerJobRequests: (props: GetDogOwnerJobRequestsRequestProps) => Promise<BaseResponseWithData<JobRequest[]>>;
   updateJobRequest: (props: UpdateJobRequestRequestProps) => Promise<BaseResponse>;
   deleteJobRequest: (props: DeleteJobRequestRequestProps) => Promise<BaseResponse>;
+}
+
+function createJobRequestsQuery(params: GetPageOfJobRequestsRequestProps): string {
+  const { nameSearchTerm, sortColumn, sortOrder, pageCount, page } = params;
+
+  const queryParams: string[] = [];
+
+  // Add non-empty and defined optional parameters
+  if (nameSearchTerm !== undefined && nameSearchTerm !== '') {
+    queryParams.push(`nameSearchTerm=${encodeURIComponent(nameSearchTerm)}`);
+  }
+
+  if (sortColumn !== undefined && sortColumn !== '') {
+    queryParams.push(`sortColumn=${encodeURIComponent(sortColumn)}`);
+  }
+
+  if (sortOrder !== undefined && sortOrder !== '') {
+    queryParams.push(`sortOrder=${encodeURIComponent(sortOrder)}`);
+  }
+
+  // Add required parameters
+  queryParams.push(`pageCount=${pageCount}`);
+  queryParams.push(`page=${page}`);
+
+  // Combine all parameters into a query string
+  const queryString = queryParams.join('&');
+
+  // Return the full query string
+  return `/JobRequest/job-requests?${queryString}`;
 }
 
 export class JobRequestApi implements JobRequestApiService {
@@ -33,14 +62,10 @@ export class JobRequestApi implements JobRequestApiService {
   }
 
   async getPageOfJobRequests(props: GetPageOfJobRequestsRequestProps) {
-    const query = `/JobRequest/job-requests
-    ?${props.nameSearchTerm ?? `nameSearchTerm=${props.nameSearchTerm}`}
-    &${props.sortColumn ?? `sortColumn=${props.sortColumn}`}
-    &${props.sortOrder ?? `sortOrder=${props.sortOrder}`}
-    &pageCount=${props.pageCount}
-    &page=${props.pageCount}`;
 
-    const { data } = await $api.get<BaseResponseWithData<JobRequest[]>>(query);
+    const query = createJobRequestsQuery(props);
+
+    const { data } = await $api.get<BaseResponseWithData<PageOf<JobRequest>>>(query);
     return data;
   }
 
