@@ -5,10 +5,10 @@ import {
   DeleteDogRequestProps,
   GetPageOfDogsRequestProps,
   GetDogRequestProps,
-  UpdateDogRequestProps, GetDogOwnerDogsRequestProps,
+  UpdateDogRequestProps,
+  GetDogOwnerDogsRequestProps,
 } from '@/shared/api/dog-api/models/requests.ts';
 import { Dog } from '@/entities/dog/model/models.ts';
-
 
 export interface DogApiService {
   createDog: (props: CreateDogRequestProps) => Promise<BaseResponse>;
@@ -34,7 +34,7 @@ export class DogApi implements DogApiService {
   }
 
   async getDog(props: GetDogRequestProps) {
-    const query = `/Dog/dog${props.id ? `/?id=${props.id}` : ''}`;
+    const query = `/Dog/dog${props.id ? `/${props.id}` : ''}`;
     const { data } = await $api.get<BaseResponseWithData<Dog>>(query);
     return data;
   }
@@ -62,5 +62,4 @@ export class DogApi implements DogApiService {
     const { data } = await $api.delete<BaseResponse>(query);
     return data;
   }
-
 }

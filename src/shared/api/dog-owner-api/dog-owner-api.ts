@@ -9,11 +9,12 @@ import {
 } from '@/shared/api/dog-owner-api/models/requests.ts';
 import { DogOwner } from '@/entities/dogOwner/model/models.ts';
 
-
 export interface DogOwnerApiService {
   createDogOwner: (props: CreateDogOwnerRequestProps) => Promise<BaseResponse>;
   getDogOwner: (props: GetDogOwnerRequestProps) => Promise<BaseResponseWithData<DogOwner>>;
-  getPageOfDogOwners: (props: GetPageOfDogOwnersRequestProps) => Promise<BaseResponseWithData<DogOwner[]>>;
+  getPageOfDogOwners: (
+    props: GetPageOfDogOwnersRequestProps,
+  ) => Promise<BaseResponseWithData<DogOwner[]>>;
   updateDogOwner: (props: UpdateDogOwnerRequestProps) => Promise<BaseResponse>;
   deleteDogOwner: (props: DeleteDogOwnerRequestProps) => Promise<BaseResponse>;
 }
@@ -25,9 +26,8 @@ export class DogOwnerApi implements DogOwnerApiService {
     return data;
   }
 
-
   async getDogOwner(props: GetDogOwnerRequestProps) {
-    const query = `/DogOwner/dog-owner${props.id ? `/?id=${props.id}` : ''}`;
+    const query = `/DogOwner/dog-owner${props.id ? `/${props.id}` : ''}`;
     const { data } = await $api.get<BaseResponseWithData<DogOwner>>(query);
     return data;
   }
@@ -55,5 +55,4 @@ export class DogOwnerApi implements DogOwnerApiService {
     const { data } = await $api.delete<BaseResponse>(query);
     return data;
   }
-
 }

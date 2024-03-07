@@ -5,10 +5,10 @@ import {
   DeleteJobRequestProps,
   GetPageOfJobsRequestProps,
   GetJobRequestProps,
-  UpdateJobRequestProps, GetDogOwnerJobsRequestProps,
+  UpdateJobRequestProps,
+  GetDogOwnerJobsRequestProps,
 } from '@/shared/api/job-api/models/requests.ts';
 import { Job } from '@/entities/job/model/models.ts';
-
 
 export interface JobApiService {
   createJob: (props: CreateJobRequestProps) => Promise<BaseResponse>;
@@ -21,19 +21,19 @@ export interface JobApiService {
 
 export class JobApi implements JobApiService {
   async createJob(props: CreateJobRequestProps) {
-    const query = '/Job/job-request';
+    const query = '/Job/job';
     const { data } = await $api.post<BaseResponse>(query, props);
     return data;
   }
 
   async getJob(props: GetJobRequestProps) {
-    const query = `/Job/job-request${props.id ? `/?id=${props.id}` : ''}`;
+    const query = `/Job/job${props.id ? `/?id=${props.id}` : ''}`;
     const { data } = await $api.get<BaseResponseWithData<Job>>(query);
     return data;
   }
 
   async getPageOfJobs(props: GetPageOfJobsRequestProps) {
-    const query = `/Job/job-requests
+    const query = `/Job/jobs
     ?${props.nameSearchTerm ?? `nameSearchTerm=${props.nameSearchTerm}`}
     &${props.sortColumn ?? `sortColumn=${props.sortColumn}`}
     &${props.sortOrder ?? `sortOrder=${props.sortOrder}`}
@@ -45,22 +45,21 @@ export class JobApi implements JobApiService {
   }
 
   async getDogOwnerJobs(props: GetDogOwnerJobsRequestProps) {
-    const query = `/Job/dog-owner/${props.id}/job-requests`;
+    const query = `/Job/dog-owner/${props.id}/jobs`;
 
     const { data } = await $api.get<BaseResponseWithData<Job[]>>(query);
     return data;
   }
 
   async updateJob(props: UpdateJobRequestProps) {
-    const query = '/Job/job-request';
+    const query = '/Job/job';
     const { data } = await $api.put<BaseResponse>(query, props);
     return data;
   }
 
   async deleteJob(props: DeleteJobRequestProps) {
-    const query = `/Job/job-request/${props.id ?? ''}`;
+    const query = `/Job/job/${props.id ?? ''}`;
     const { data } = await $api.delete<BaseResponse>(query);
     return data;
   }
-
 }

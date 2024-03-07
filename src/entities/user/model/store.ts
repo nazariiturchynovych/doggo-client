@@ -15,90 +15,90 @@ import { devtools } from 'zustand/middleware';
 type UserState = {
   user: User;
   setUser: (user: User) => void;
-  getCurrentUser: () => Promise<BaseResponseWithData<User>>
+  getCurrentUser: () => Promise<BaseResponseWithData<User>>;
   isAuth: boolean;
   setIsAuth: (state: boolean) => void;
   signIn: (props: SignInRequestProps) => Promise<BaseResponseWithData<SignInDto>>;
   signInGoogle: (props: SignInGoogleRequestProps) => Promise<BaseResponseWithData<SignInDto>>;
   signInFacebook: (props: SignInFacebookRequestProps) => Promise<BaseResponseWithData<SignInDto>>;
-  signOut: () => void
+  signOut: () => void;
 };
 
-export const useUserStore = create<UserState>()(devtools((set) => ({
-      user: {
-        age: 0,
-        id: Guid.EMPTY,
-        firstName: '',
-        lastName: '',
-        email: '',
-        dogOwnerId: null,
-        walkerId: null,
-      }, //TODO add phone number
-      setUser: (user) =>
-        set(() => {
-          return { user: user };
-        }),
-      getCurrentUser: async () => {
-        const reqProps: GetUserRequestProps = {
-          id: undefined,
-        };
-        const response = await userApi.getUser(reqProps);
+export const useUserStore = create<UserState>()(
+  devtools((set) => ({
+    user: {
+      age: 0,
+      id: Guid.EMPTY,
+      firstName: '',
+      lastName: '',
+      email: '',
+      dogOwnerId: null,
+      walkerId: null,
+    }, //TODO add phone number
+    setUser: (user) =>
+      set(() => {
+        return { user: user };
+      }),
+    getCurrentUser: async () => {
+      const reqProps: GetUserRequestProps = {
+        id: undefined,
+      };
+      const response = await userApi.getUser(reqProps);
 
-        if (response.isSuccess) {
-          set(() => ({
-            user: response.data,
-          }));
-
-        }
-        return response;
-
-      },
-      isAuth: false,
-      setIsAuth: (state) =>
-        set(() => {
-          return { isAuth: state };
-        }),
-      signIn: async (props) => {
-        const response = await authenticationApi.signIn(props);
-        if (response.isSuccess) {
-          localStorage.setItem('token', response.data.token);
-          localStorage.setItem('refreshToken', response.data.refreshToken);
-          set(() => ({
-            isAuth: true,
-          }));
-        }
-        return response;
-      },
-      signInGoogle: async (props) => {
-        const response = await authenticationApi.signInGoogle(props);
-        if (response.isSuccess) {
-          localStorage.setItem('token', response.data.token);
-          localStorage.setItem('refreshToken', response.data.refreshToken);
-          set(() => ({
-            isAuth: true,
-          }));
-        }
-        return response;
-      },
-
-      signInFacebook: async (props) => {
-        const response = await authenticationApi.signInFacebook(props);
-        if (response.isSuccess) {
-          localStorage.setItem('token', response.data.token);
-          localStorage.setItem('refreshToken', response.data.refreshToken);
-          set(() => ({
-            isAuth: true,
-          }));
-        }
-        return response;
-      },
-      signOut: () => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('refreshToken');
+      if (response.isSuccess) {
         set(() => ({
-          isAuth: false,
+          user: response.data,
         }));
-      },
-    }),
-  ))
-;
+      }
+      return response;
+    },
+    isAuth: false,
+    setIsAuth: (state) =>
+      set(() => {
+        return { isAuth: state };
+      }),
+    signIn: async (props) => {
+      const response = await authenticationApi.signIn(props);
+      if (response.isSuccess) {
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('refreshToken', response.data.refreshToken);
+        set(() => ({
+          isAuth: true,
+        }));
+      }
+      return response;
+    },
+    signInGoogle: async (props) => {
+      console.log(props);
+
+      const response = await authenticationApi.signInGoogle(props);
+      if (response.isSuccess) {
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('refreshToken', response.data.refreshToken);
+        set(() => ({
+          isAuth: true,
+        }));
+      }
+      return response;
+    },
+
+    signInFacebook: async (props) => {
+      const response = await authenticationApi.signInFacebook(props);
+      if (response.isSuccess) {
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('refreshToken', response.data.refreshToken);
+        set(() => ({
+          isAuth: true,
+        }));
+      }
+      return response;
+    },
+    signOut: () => {
+      localStorage.removeItem('token');
+      localStorage.removeItem('refreshToken');
+      set(() => ({
+        isAuth: false,
+      }));
+    },
+  })),
+);

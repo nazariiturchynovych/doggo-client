@@ -2,10 +2,35 @@ import React from 'react';
 import { LoginSocialGoogle } from 'reactjs-social-login';
 import { useSignInUserGoogle } from '@/features/auth/sign-in/lib/hooks';
 
+type GoogleAuthProviderData = {
+  provider: 'google';
+  data: {
+    access_token: string;
+    token_type: string;
+    expires_in: number;
+    scope: string;
+    authuser: string;
+    prompt: string;
+    sub: string;
+    name: string;
+    given_name: string;
+    family_name: string;
+    picture: string;
+    email: string;
+    email_verified: boolean;
+    locale: string;
+  };
+};
+
 export const LoginGoogle: React.FC = () => {
   const { mutateAsync } = useSignInUserGoogle();
-  const onSuccess = async (loginResponse: any) => {
-    const response = await mutateAsync(loginResponse);
+  const onSuccess = async (loginResponse: GoogleAuthProviderData) => {
+    const response = await mutateAsync({ credential: loginResponse.data.access_token });
+
+    if (response?.data) {
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('token', response.data.refreshToken);
+    }
 
     console.log(response);
   };
@@ -36,4 +61,3 @@ export const LoginGoogle: React.FC = () => {
     </div>
   );
 };
-

@@ -8,7 +8,8 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage, Input, Textarea,
+  FormMessage,
+  Textarea,
 } from '@/shared/ui';
 import { Button, Loader } from '@/shared/ui';
 import { JobSchema } from '@/features/create-job/models/models.ts';
@@ -18,20 +19,18 @@ import React from 'react';
 import { Guid } from 'typescript-guid';
 
 type JobFormProps = {
-  jobRequestId: Guid
-}
+  jobRequestId: Guid;
+};
 
-const JobForm: React.FC<JobFormProps> = ({jobRequestId}) => {
+const JobForm: React.FC<JobFormProps> = ({ jobRequestId }) => {
   const navigate = useNavigate();
   const { mutateAsync: createJob, isPending: isLoadingCreate } = useCreateJob();
-
 
   const form = useForm<z.infer<typeof JobSchema>>({
     resolver: zodResolver(JobSchema),
     defaultValues: {
       jobRequestId: jobRequestId.toString(),
       comments: '',
-      payment: 0
     },
   });
 
@@ -42,27 +41,24 @@ const JobForm: React.FC<JobFormProps> = ({jobRequestId}) => {
     if (response.isSuccess) {
       navigate('/');
     }
-
   };
 
   return (
-    <div className='flex justify-center items-center p-5 shadow-md h-auto'> //Move to form
-
+    <div className="flex h-auto items-center justify-center">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(handleSubmit)}
-          className='flex w-full max-w-3xl flex-col  gap-9 justify-center items-center'>
-
+          className="flex w-full max-w-3xl flex-col  items-center justify-center gap-9">
           <FormField
             control={form.control}
-            name='comments'
+            name="comments"
             render={({ field }) => (
-              <FormItem className='w-full'>
-                <FormLabel >Write here if you want to tell something to owner</FormLabel>
+              <FormItem className="w-full">
+                <FormLabel>Write here if you want to tell something to owner</FormLabel>
                 <FormControl>
                   <Textarea
-                    placeholder='Go near river, allow to iteract with other dogs'
-                    className='resize-none'
+                    placeholder="Go near river, allow to iteract with other dogs"
+                    className="resize-none"
                     {...field}
                   />
                 </FormControl>
@@ -71,30 +67,10 @@ const JobForm: React.FC<JobFormProps> = ({jobRequestId}) => {
             )}
           />
 
-          <FormField
-            control={form.control}
-            name='payment'
-            render={({ field }) => (
-              <FormItem className='flex items-center gap-5 p-2 w-full'>
-                <FormLabel>Write price you expected</FormLabel>
-                <FormControl>
-                  <Input type='number' {...field}/>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-
-          <div className='flex items-center justify-between gap-4 w-full'>
-            <Button type='button' onClick={() => navigate(-1)}>
-              Cancel
-            </Button>
-            <Button
-              type='submit'
-              className=' whitespace-nowrap'>
+          <div className="flex w-full items-center justify-between gap-4">
+            <Button type="submit" className=" w-full">
               {isLoadingCreate && <Loader />}
-              Create Job
+              Apply
             </Button>
           </div>
         </form>
