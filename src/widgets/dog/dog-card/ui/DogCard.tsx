@@ -12,12 +12,16 @@ export const DogCard: React.FC<UserCardProps> = ({ id }) => {
   if (!data) {
     return <Loader />;
   }
-  const dog = data.data;
 
+  const dog = data.data;
   return (
     <div className="flex w-full min-w-60 flex-col items-center justify-center gap-5">
-      <div className="flex w-full max-w-screen-md items-center justify-center rounded-md bg-white p-4 shadow-md">
-        <img src="/src/shared/assets/images/dog-image-mock.jpg" alt="dog" />
+      <div className="flex w-full items-center justify-center rounded-md bg-white p-4 shadow-md">
+        <img
+          className="max-w-screen-md"
+          src="/src/shared/assets/images/dog-image-mock.jpg"
+          alt="dog"
+        />
       </div>
       <div className="flex w-full justify-between rounded-md bg-white p-4 shadow-md">
         <div className="flex flex-col">

@@ -7,7 +7,7 @@ export const PageLayout: React.FC = () => {
     <div className="flex w-full flex-col items-center">
       <Header />
       <div className="flex w-full justify-center">
-        <section className="flex h-full w-full flex-1 px-5">
+        <section className="flex w-full max-w-screen-xl flex-1 px-5">
           <Outlet />
         </section>
       </div>

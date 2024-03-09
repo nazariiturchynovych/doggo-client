@@ -27,6 +27,7 @@ export class DogOwnerApi implements DogOwnerApiService {
   }
 
   async getDogOwner(props: GetDogOwnerRequestProps) {
+    console.log('im here');
     const query = `/DogOwner/dog-owner${props.id ? `/${props.id}` : ''}`;
     const { data } = await $api.get<BaseResponseWithData<DogOwner>>(query);
     return data;

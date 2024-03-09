@@ -15,14 +15,14 @@ import { Button, Loader } from '@/shared/ui';
 import { JobSchema } from '@/features/create-job/models/models.ts';
 import { useCreateJob } from '@/features/create-job/lib/hooks';
 import { CreateJobRequestProps } from '@/shared/api/job-api';
-import React from 'react';
 import { Guid } from 'typescript-guid';
+import { FC } from 'react';
 
 type JobFormProps = {
   jobRequestId: Guid;
 };
 
-const JobForm: React.FC<JobFormProps> = ({ jobRequestId }) => {
+const JobForm: FC<JobFormProps> = ({ jobRequestId }) => {
   const navigate = useNavigate();
   const { mutateAsync: createJob, isPending: isLoadingCreate } = useCreateJob();
 
@@ -30,7 +30,7 @@ const JobForm: React.FC<JobFormProps> = ({ jobRequestId }) => {
     resolver: zodResolver(JobSchema),
     defaultValues: {
       jobRequestId: jobRequestId.toString(),
-      comments: '',
+      comment: '',
     },
   });
 
@@ -51,10 +51,12 @@ const JobForm: React.FC<JobFormProps> = ({ jobRequestId }) => {
           className="flex w-full max-w-3xl flex-col  items-center justify-center gap-9">
           <FormField
             control={form.control}
-            name="comments"
+            name="comment"
             render={({ field }) => (
               <FormItem className="w-full">
-                <FormLabel>Write here if you want to tell something to owner</FormLabel>
+                <FormLabel className="font-bold">
+                  Write here if you want to tell something to owner
+                </FormLabel>
                 <FormControl>
                   <Textarea
                     placeholder="Go near river, allow to iteract with other dogs"
@@ -66,11 +68,9 @@ const JobForm: React.FC<JobFormProps> = ({ jobRequestId }) => {
               </FormItem>
             )}
           />
-
           <div className="flex w-full items-center justify-between gap-4">
             <Button type="submit" className=" w-full">
-              {isLoadingCreate && <Loader />}
-              Apply
+              {isLoadingCreate ? <Loader /> : 'Apply'}
             </Button>
           </div>
         </form>

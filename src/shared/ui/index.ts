@@ -11,3 +11,4 @@ export * from './textarea.tsx';
 export * from './label.tsx';
 export * from './carousel.tsx';
 export * from './popover.tsx';
+export * from './dialog.tsx';

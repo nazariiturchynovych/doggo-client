@@ -10,7 +10,7 @@ export const Loader: React.FC<LoaderProps> = ({ size }) => {
         alt="loader"
         width={size ?? 24}
         height={size ?? 24}
-        className="animate-spin"
+        className="animate-spin fill-white"
       />
     </div>
   );

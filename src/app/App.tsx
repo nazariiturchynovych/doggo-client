@@ -13,7 +13,7 @@ import {
   WalkerProfile,
 } from '@/pages';
 import { Toaster } from '@/shared/ui';
-import { JobRequestInfo } from '@/widgets/job-request/job-request-info';
+import { JobRequestInfo } from 'src/pages/job-request-info';
 
 function App() {
   return (
@@ -26,13 +26,13 @@ function App() {
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password" element={<ResetPassword />} />
 
-            <Route path="/" element={<JobRequestInfo />} />
+            <Route path="/" element={<Explore />} />
             <Route path="/explore" element={<Explore />} />
             <Route path="/user-profile" element={<UserProfile />} />
             <Route path="/user-profile/:id" element={<UserProfile />} />
             <Route path="/walker-profile/:id" element={<WalkerProfile />} />
             <Route path="/dog-owner-profile/:id" element={<DogOwnerProfile />} />
-            <Route path="/job-request-info" element={<JobRequestInfo />} />
+            <Route path="/job-request-info/:id" element={<JobRequestInfo />} />
             <Route path="/schedule" element={<Schedule />} />
           </Route>
         </Routes>
