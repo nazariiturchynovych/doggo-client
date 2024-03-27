@@ -1,8 +1,6 @@
-import { Guid } from 'typescript-guid';
-
 export type Walker = {
-  id: Guid | null,
-  userId: Guid | null,
-  skills: string,
-  about: string,
+  id: string | null;
+  userId: string;
+  skills: string;
+  about: string;
 };

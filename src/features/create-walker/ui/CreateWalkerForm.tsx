@@ -3,14 +3,16 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
+  Button,
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage, Textarea,
+  FormMessage,
+  Loader,
+  Textarea,
 } from '@/shared/ui';
-import { Button, Loader } from '@/shared/ui';
 import { WalkerSchema } from '@/features/create-walker/models/models.ts';
 import { authenticationApi, RefreshTokenRequestProps } from '@/shared/api/auth-api';
 import { useCreateWalker } from '@/features/create-walker/lib/hooks';
@@ -38,70 +40,68 @@ const WalkerForm = () => {
         refreshToken: localStorage.getItem('refreshToken') || '',
       };
 
-      const data = await authenticationApi.refreshToken(props)
+      const data = await authenticationApi.refreshToken(props);
       if (data.isSuccess) {
         localStorage.setItem('token', data.data.token);
         localStorage.setItem('refreshToken', data.data.refreshToken);
       }
     }
 
-    navigate('/');
+    navigate(`/walker-profile/${data.data.id}`);
   };
 
   return (
-    <div className='flex justify-center items-center p-5 shadow-md h-auto'>
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(handleSubmit)}
-        className="flex w-full max-w-5xl flex-col  gap-9">
-        <FormField
-          control={form.control}
-          name="skills"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="shad-form_label">Write about your skills</FormLabel>
-              <FormControl>
-                <Textarea
-                  placeholder="Training, first aid, etc."
-                  className="resize-none"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage className="shad-form_message" />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="about"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="shad-form_label">Write bout yourself</FormLabel>
-              <FormControl>
-                <Textarea
-                  placeholder="Tell us a little bit about yourself"
-                  className="resize-none"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage className="shad-form_message" />
-            </FormItem>
-          )}
-        />
+    <div className="flex h-auto items-center justify-center p-5 shadow-md">
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(handleSubmit)}
+          className="flex w-full max-w-5xl flex-col  gap-9">
+          <FormField
+            control={form.control}
+            name="skills"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="shad-form_label">Write about your skills</FormLabel>
+                <FormControl>
+                  <Textarea
+                    placeholder="Training, first aid, etc."
+                    className="resize-none"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage className="shad-form_message" />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="about"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="shad-form_label">Write bout yourself</FormLabel>
+                <FormControl>
+                  <Textarea
+                    placeholder="Tell us a little bit about yourself"
+                    className="resize-none"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage className="shad-form_message" />
+              </FormItem>
+            )}
+          />
 
-        <div className="flex items-center justify-end gap-4">
-          <Button type="button" className="shad-button_dark_4" onClick={() => navigate(-1)}>
-            Cancel
-          </Button>
-          <Button
-            type="submit"
-            className="shad-button_primary whitespace-nowrap">
-            {isLoadingCreate && <Loader />}
-            Create Walker
-          </Button>
-        </div>
-      </form>
-    </Form>
+          <div className="flex items-center justify-end gap-4">
+            <Button type="button" className="shad-button_dark_4" onClick={() => navigate(-1)}>
+              Cancel
+            </Button>
+            <Button type="submit" className="shad-button_primary whitespace-nowrap">
+              {isLoadingCreate && <Loader />}
+              Create Walker
+            </Button>
+          </div>
+        </form>
+      </Form>
     </div>
   );
 };

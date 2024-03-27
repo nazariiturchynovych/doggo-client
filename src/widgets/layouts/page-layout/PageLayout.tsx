@@ -6,10 +6,8 @@ export const PageLayout: React.FC = () => {
   return (
     <div className="flex w-full flex-col items-center">
       <Header />
-      <div className="flex w-full justify-center">
-        <section className="flex w-full max-w-screen-xl flex-1 px-5">
-          <Outlet />
-        </section>
+      <div className="w-full max-w-screen-xl">
+        <Outlet />
       </div>
     </div>
   );

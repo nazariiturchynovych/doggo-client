@@ -1,23 +1,22 @@
 import React from 'react';
 import { useGetJobRequest } from '@/pages/job-request-info/lib/hooks';
-import { Guid } from 'typescript-guid';
 import {
-  Loader,
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  Loader,
 } from '@/shared/ui';
 import { DogCard } from '@/widgets/dog';
 import { DogOwnerCard } from '@/widgets/dog-owner/dog-owner-card/ui/DogOnwnerCard.tsx';
-import JobForm from '@/features/create-job/ui/JobRequestForm.tsx';
+import JobForm from '@/features/create-job/ui/JobForm.tsx';
 import { useParams } from 'react-router-dom';
 
 export const JobRequestInfo: React.FC = () => {
   const { id } = useParams();
 
-  const { data } = useGetJobRequest({ id: Guid.parse(id || '') });
+  const { data } = useGetJobRequest({ id: id });
 
   if (!data) {
     return <Loader />;

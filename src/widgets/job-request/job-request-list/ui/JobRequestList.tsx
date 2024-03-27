@@ -8,7 +8,7 @@ type JobRequestListProps = {
 
 const JobRequestList: React.FC<JobRequestListProps> = ({ jobRequests }) => {
   return (
-    <div className="flex w-full flex-col items-center gap-5 px-10">
+    <div className="flex w-full flex-col items-center gap-5">
       {jobRequests.map((item) => (
         <JobRequestCard key={item.id.toString()} jobRequest={item} />
       ))}

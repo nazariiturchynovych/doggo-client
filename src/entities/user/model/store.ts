@@ -8,7 +8,6 @@ import { BaseResponseWithData } from '@/shared/api/result';
 import { SignInDto } from '@/shared/api/auth-api/models/dtos.ts';
 import { authenticationApi } from '@/shared/api/auth-api';
 import { User } from '@/entities/user/model/models.ts';
-import { Guid } from 'typescript-guid';
 import { GetUserRequestProps, userApi } from '@/shared/api/user-api';
 import { devtools } from 'zustand/middleware';
 
@@ -28,7 +27,7 @@ export const useUserStore = create<UserState>()(
   devtools((set) => ({
     user: {
       age: 0,
-      id: Guid.EMPTY,
+      id: '',
       firstName: '',
       lastName: '',
       email: '',
@@ -48,11 +47,13 @@ export const useUserStore = create<UserState>()(
       if (response.isSuccess) {
         set(() => ({
           user: response.data,
+          isAuth: true,
         }));
       }
       return response;
     },
     isAuth: false,
+
     setIsAuth: (state) =>
       set(() => {
         return { isAuth: state };
@@ -68,6 +69,7 @@ export const useUserStore = create<UserState>()(
       }
       return response;
     },
+
     signInGoogle: async (props) => {
       console.log(props);
 

@@ -3,10 +3,10 @@ import $api from '@/shared/lib/config/axios.ts';
 import {
   CreateDogRequestProps,
   DeleteDogRequestProps,
-  GetPageOfDogsRequestProps,
-  GetDogRequestProps,
-  UpdateDogRequestProps,
   GetDogOwnerDogsRequestProps,
+  GetDogRequestProps,
+  GetPageOfDogsRequestProps,
+  UpdateDogRequestProps,
 } from '@/shared/api/dog-api/models/requests.ts';
 import { Dog } from '@/entities/dog/model/models.ts';
 
@@ -34,7 +34,7 @@ export class DogApi implements DogApiService {
   }
 
   async getDog(props: GetDogRequestProps) {
-    const query = `/Dog/dog${props.id ? `/${props.id}` : ''}`;
+    const query = `/Dog/dog/${props.id}`;
     const { data } = await $api.get<BaseResponseWithData<Dog>>(query);
     return data;
   }

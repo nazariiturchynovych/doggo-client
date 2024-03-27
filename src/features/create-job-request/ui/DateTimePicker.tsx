@@ -1,94 +1,69 @@
 import React, { useState } from 'react';
 import { Calendar, Input, Popover, PopoverContent, PopoverTrigger } from '@/shared/ui';
+import { DateTimeDisplay } from '@/features/create-job-request/ui/DateTimeDisplay.tsx';
+import { formatTime } from '@/features/create-job-request/lib/utils';
 
 type DateTimePickerProps = {
-  setValueFrom: (inputFrom: string) => void;
-  setValueTo: (inputTo: string) => void;
-
+  setScheduleValue: (inputFrom: Date, inputTo: Date) => void;
 };
-export const DateTimePicker: React.FC<DateTimePickerProps> = ({setValueFrom, setValueTo}) => {
-  const [date, setDate] = React.useState<Date | undefined>(new Date());
-  const now = new Date();
 
-  //format dd.mm.yyyy, --:--
-  const currentTime = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+const createDateFromTimeString = (timeString: string, date: Date): Date => {
+  const newDate = new Date(date);
+  const [hours, minutes] = timeString.split(':').map(Number);
+  newDate.setHours(hours);
+  newDate.setMinutes(minutes);
+  return newDate;
+};
 
-  const [timeFrom, setTimeFrom] = useState(currentTime);
-  const [timeTo, setTimeTo] = useState(currentTime);
+export const DateTimePicker: React.FC<DateTimePickerProps> = ({ setScheduleValue }) => {
+  const [date, setDate] = useState<Date | undefined>(new Date());
+  const [timeFrom, setTimeFrom] = useState(formatTime(date!));
+  const [timeTo, setTimeTo] = useState(formatTime(date!));
 
-  const handleTimeChangeFrom: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-    setTimeFrom(event.target.value);
+  React.useEffect(() => {
+    const dateTimeFrom = createDateFromTimeString(timeFrom, date!);
+    const dateTimeTo = createDateFromTimeString(timeTo, date!);
 
-    const [hours, minutes] = event.target.value.split(':');
-
-    const myDate = date || new Date();
-    myDate.setHours(parseInt(hours, 10));
-    myDate.setMinutes(parseInt(minutes, 10));
-
-    setValueFrom(myDate.toISOString())
-  };
-  const handleTimeChangeTo: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-    setTimeTo(event.target.value);
-
-    const [hours, minutes] = event.target.value.split(':');
-
-    const myDate = date || new Date();
-    myDate.setHours(parseInt(hours, 10));
-    myDate.setMinutes(parseInt(minutes, 10));
-
-
-    setValueTo(myDate.toISOString())
-  };
+    setScheduleValue(dateTimeFrom, dateTimeTo);
+  }, [timeFrom, timeTo, date]);
 
   return (
-    <div className='flex w-full justify-between items-center border rounded-md h-10 p-2'>
-      <DateTimeDisplay date={date} timeFrom={timeFrom} timeTo={timeTo} />
-      <div>
-        <Popover>
-          <PopoverTrigger className='flex'>
-            <div>
-
-                <img src='/src/shared/assets/icons/calendar.svg' height={30} width={30} alt={'crd'} />
+    <div className="z-[2000] flex h-10 w-full items-center justify-between rounded-md border p-2">
+      <Popover>
+        <DateTimeDisplay timeFrom={timeFrom} timeTo={timeTo} date={date!} />
+        <PopoverTrigger className="flex">
+          <div>
+            <img src="/src/shared/assets/icons/calendar.svg" height={30} width={30} alt={'crd'} />
+          </div>
+        </PopoverTrigger>
+        <PopoverContent className="z-[52] w-full">
+          <Calendar mode="single" selected={date} onSelect={setDate} className="w-full" />
+          <div className=" flex w-full content-center items-center justify-between gap-2 rounded-md border px-4">
+            <div className="flex items-center justify-center gap-2">
+              From:
+              <Input
+                required={true}
+                type={'time'}
+                value={timeFrom}
+                className=" w-auto border-0 p-0 "
+                onChange={(event) => setTimeFrom(event.target.value)}
+              />
             </div>
-          </PopoverTrigger>
-          <PopoverContent className='w-full'>
-            <Calendar
-              mode='single'
-              selected={date}
-              onSelect={setDate}
-              className='w-full'
-            />
-            <div
-              className=' flex items-center content-center w-full border rounded-md gap-2 justify-between px-4'>
-              <div className='flex justify-center items-center'>
-                From: <Input required={true} type={'time'} className=' w-auto border-0 p-0'
-                             value={timeFrom}
-                             onChange={handleTimeChangeFrom} />
-              </div>
-              <div className='flex justify-center items-center'>
-                To: <Input required={true} type={'time'} className=' w-auto border-0 p-0'
-                           value={timeTo}
-                           onChange={handleTimeChangeTo} />
-              </div>
+            <div className="flex items-center justify-center gap-2">
+              To:
+              <Input
+                required={true}
+                type={'time'}
+                value={timeTo}
+                className=" w-auto border-0 p-0 "
+                onChange={(event) => setTimeTo(event.target.value)}
+              />
             </div>
-          </PopoverContent>
-        </Popover>
-      </div>
+          </div>
+        </PopoverContent>
+      </Popover>
     </div>
   );
-};
-
-interface DateTimeDisplayProps {
-  date?: Date;
-  timeFrom: string;
-  timeTo: string;
-}
-
-const DateTimeDisplay: React.FC<DateTimeDisplayProps> = ({ date, timeFrom, timeTo }) => {
-  const formattedDate = date ? `${String(date.getDate()).padStart(2, '0')}.${String(date.getMonth() + 1).padStart(2, '0')}.${date.getFullYear()}` : 'dd.mm.yyyy';
-  const displayText = `${formattedDate},  ${timeFrom} - ${timeTo}`;
-
-  return <div className='text-center'>{displayText}</div>;
 };
 
 export default DateTimePicker;

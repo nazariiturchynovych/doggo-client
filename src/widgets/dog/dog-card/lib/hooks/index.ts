@@ -3,7 +3,7 @@ import { dogApi, GetDogRequestProps } from '@/shared/api/dog-api';
 
 export const useGetDog = (props: GetDogRequestProps) => {
   return useQuery({
-    queryKey: ['GetDog'],
+    queryKey: [props.id.toString()],
     queryFn: async () => await dogApi.getDog(props),
   });
 };

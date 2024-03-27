@@ -12,15 +12,15 @@ interface InfiniteScrollProps {
 }
 
 export default function InfiniteScroll({
-                                         isLoading,
-                                         hasMore,
-                                         next,
-                                         threshold = 1,
-                                         root = null,
-                                         rootMargin = '0px',
-                                         reverse,
-                                         children,
-                                       }: InfiniteScrollProps) {
+  isLoading,
+  hasMore,
+  next,
+  threshold = 1,
+  root = null,
+  rootMargin = '0px',
+  reverse,
+  children,
+}: InfiniteScrollProps) {
   const observer = React.useRef<IntersectionObserver>();
   // This callback ref will be called when it is dispatched to an element or detached from an element,
   // or when the callback function changes.
@@ -45,7 +45,6 @@ export default function InfiniteScroll({
       observer.current = new IntersectionObserver(
         (entries) => {
           if (entries[0].isIntersecting && hasMore) {
-            console.log('fetching dali');
             next();
           }
         },
@@ -63,7 +62,7 @@ export default function InfiniteScroll({
       {flattenChildren.map((child, index) => {
         if (!React.isValidElement(child)) {
           process.env.NODE_ENV === 'development' &&
-          console.warn('You should use a valid element with InfiniteScroll');
+            console.warn('You should use a valid element with InfiniteScroll');
           return child;
         }
 

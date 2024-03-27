@@ -9,11 +9,12 @@ import {
 } from '@/shared/api/walker-api/models/requests.ts';
 import { Walker } from '@/entities/walker/model/models.ts';
 
-
 export interface WalkerApiService {
   createWalker: (props: CreateWalkerRequestProps) => Promise<BaseResponse>;
   getWalker: (props: GetWalkerRequestProps) => Promise<BaseResponseWithData<Walker>>;
-  getPageOfWalkers: (props: GetPageOfWalkersRequestProps) => Promise<BaseResponseWithData<Walker[]>>;
+  getPageOfWalkers: (
+    props: GetPageOfWalkersRequestProps,
+  ) => Promise<BaseResponseWithData<Walker[]>>;
   updateWalker: (props: UpdateWalkerRequestProps) => Promise<BaseResponse>;
   deleteWalker: (props: DeleteWalkerRequestProps) => Promise<BaseResponse>;
 }
@@ -21,10 +22,9 @@ export interface WalkerApiService {
 export class WalkerApi implements WalkerApiService {
   async createWalker(props: CreateWalkerRequestProps) {
     const query = '/Walker/walker';
-    const { data } = await $api.post<BaseResponse>(query, props);
+    const { data } = await $api.post<BaseResponseWithData<Walker>>(query, props);
     return data;
   }
-
 
   async getWalker(props: GetWalkerRequestProps) {
     const query = `/Walker/walker${props.id ? `/?id=${props.id}` : ''}`;
@@ -55,5 +55,4 @@ export class WalkerApi implements WalkerApiService {
     const { data } = await $api.delete<BaseResponse>(query);
     return data;
   }
-
 }

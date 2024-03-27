@@ -12,3 +12,6 @@ export * from './label.tsx';
 export * from './carousel.tsx';
 export * from './popover.tsx';
 export * from './dialog.tsx';
+export * from './pagination.tsx';
+export * from './navigation-menu.tsx';
+export * from './skeleton.tsx';

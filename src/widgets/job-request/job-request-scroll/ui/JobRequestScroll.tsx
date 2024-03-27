@@ -2,13 +2,17 @@ import React from 'react';
 import { useGetPageOfJobRequests } from '@/widgets/job-request/job-request-scroll/lib/hooks';
 import InfiniteScroll from '@/shared/ui/infinite-scroll.tsx';
 import { Loader } from '@/shared/ui';
-import JobRequestList from '@/widgets/job-request/job-request-scroll/ui/JobRequestList.tsx';
+import JobRequestList from '@/widgets/job-request/job-request-list/ui/JobRequestList.tsx';
 
 const JobRequestScroll: React.FC = () => {
   const { data, fetchNextPage, isFetching } = useGetPageOfJobRequests({ page: 1, pageCount: 10 });
 
   if (!data) {
-    return <Loader />;
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <Loader size={200} />
+      </div>
+    );
   }
   const hasNextPage = data.pages[data.pages.length - 1].data.hasNextPage;
 
@@ -25,8 +29,8 @@ const JobRequestScroll: React.FC = () => {
         next={fetchNextPage}
         threshold={1}>
         {hasNextPage ? (
-          <div className="flex w-full items-center justify-center">
-            <Loader />
+          <div>
+            <Loader size={100} />
           </div>
         ) : (
           <div>That`s all job requests</div>

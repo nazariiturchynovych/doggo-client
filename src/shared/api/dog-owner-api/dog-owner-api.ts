@@ -3,14 +3,14 @@ import $api from '@/shared/lib/config/axios.ts';
 import {
   CreateDogOwnerRequestProps,
   DeleteDogOwnerRequestProps,
-  GetPageOfDogOwnersRequestProps,
   GetDogOwnerRequestProps,
+  GetPageOfDogOwnersRequestProps,
   UpdateDogOwnerRequestProps,
 } from '@/shared/api/dog-owner-api/models/requests.ts';
 import { DogOwner } from '@/entities/dogOwner/model/models.ts';
 
 export interface DogOwnerApiService {
-  createDogOwner: (props: CreateDogOwnerRequestProps) => Promise<BaseResponse>;
+  createDogOwner: (props: CreateDogOwnerRequestProps) => Promise<BaseResponseWithData<DogOwner>>;
   getDogOwner: (props: GetDogOwnerRequestProps) => Promise<BaseResponseWithData<DogOwner>>;
   getPageOfDogOwners: (
     props: GetPageOfDogOwnersRequestProps,
@@ -22,13 +22,12 @@ export interface DogOwnerApiService {
 export class DogOwnerApi implements DogOwnerApiService {
   async createDogOwner(props: CreateDogOwnerRequestProps) {
     const query = '/DogOwner/dog-owner';
-    const { data } = await $api.post<BaseResponse>(query, props);
+    const { data } = await $api.post<BaseResponseWithData<DogOwner>>(query, props);
     return data;
   }
 
-  async getDogOwner(props: GetDogOwnerRequestProps) {
-    console.log('im here');
-    const query = `/DogOwner/dog-owner${props.id ? `/${props.id}` : ''}`;
+  async getDogOwner(props: GetDogOwnerRequestProps | void) {
+    const query = `/DogOwner/dog-owner${props?.id ? `/${props.id}` : ''}`;
     const { data } = await $api.get<BaseResponseWithData<DogOwner>>(query);
     return data;
   }

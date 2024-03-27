@@ -1,16 +1,14 @@
-import { Guid } from 'typescript-guid';
-
 export type CreateJobRequestProps = {
   jobRequestId: string;
   comment: string;
 };
 
 export type GetJobRequestProps = {
-  id?: Guid;
+  id?: string;
 };
 
 export type GetDogOwnerJobsRequestProps = {
-  id: Guid;
+  id: string;
 };
 
 export type GetPageOfJobsRequestProps = {
@@ -22,7 +20,7 @@ export type GetPageOfJobsRequestProps = {
 };
 
 export type UpdateJobRequestProps = {
-  id: Guid;
+  id: string;
   name?: string;
   age?: string;
   weight?: number;
@@ -30,5 +28,5 @@ export type UpdateJobRequestProps = {
 };
 
 export type DeleteJobRequestProps = {
-  id?: Guid;
+  id?: string;
 };

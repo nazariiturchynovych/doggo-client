@@ -1,29 +1,26 @@
-import { Guid } from 'typescript-guid';
-
 export type CreateDogOwnerRequestProps = {
-  address: string,
-  district: string
-}
+  address: string;
+  district: string;
+};
 
 export type GetDogOwnerRequestProps = {
-  id?: Guid
+  id: string;
 };
 
 export type GetPageOfDogOwnersRequestProps = {
-  nameSearchTerm?: string,
-  sortColumn?: string,
-  sortOrder?: string,
-  pageCount: number,
-  page: number,
+  nameSearchTerm?: string;
+  sortColumn?: string;
+  sortOrder?: string;
+  pageCount: number;
+  page: number;
 };
 
 export type UpdateDogOwnerRequestProps = {
-  id: Guid,
-  address?: string,
-  district?: string,
+  id: string;
+  address?: string;
+  district?: string;
 };
 
 export type DeleteDogOwnerRequestProps = {
-  id?: Guid
+  id?: string;
 };
-

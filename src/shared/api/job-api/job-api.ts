@@ -3,10 +3,10 @@ import $api from '@/shared/lib/config/axios.ts';
 import {
   CreateJobRequestProps,
   DeleteJobRequestProps,
-  GetPageOfJobsRequestProps,
-  GetJobRequestProps,
-  UpdateJobRequestProps,
   GetDogOwnerJobsRequestProps,
+  GetJobRequestProps,
+  GetPageOfJobsRequestProps,
+  UpdateJobRequestProps,
 } from '@/shared/api/job-api/models/requests.ts';
 import { Job } from '@/entities/job/model/models.ts';
 
@@ -46,6 +46,13 @@ export class JobApi implements JobApiService {
 
   async getDogOwnerJobs(props: GetDogOwnerJobsRequestProps) {
     const query = `/Job/dog-owner/${props.id}/jobs`;
+
+    const { data } = await $api.get<BaseResponseWithData<Job[]>>(query);
+    return data;
+  }
+
+  async getWalkerJobs(props: GetDogOwnerJobsRequestProps) {
+    const query = `/Job/walker/${props.id}/jobs`;
 
     const { data } = await $api.get<BaseResponseWithData<Job[]>>(query);
     return data;

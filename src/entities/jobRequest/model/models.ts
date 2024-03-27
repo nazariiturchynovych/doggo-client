@@ -1,13 +1,11 @@
-import { Guid } from 'typescript-guid';
-
 export type JobRequest = {
-  id: Guid;
+  id: string;
   requiredAge: number;
   isPersonalIdentifierRequired: boolean;
   requiredSchedule: { from: Date; to: Date };
   description: string;
-  dogOwnerId: Guid;
-  dogId: Guid;
+  dogOwnerId: string;
+  dogId: string;
   paymentTo: number;
   hasAcceptedJob: boolean;
 };

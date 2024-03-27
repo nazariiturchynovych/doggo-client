@@ -1,5 +1,5 @@
 import React, { ReactNode, useLayoutEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useUserStore } from '@/entities/user';
 import { useGetCurrentUser } from '@/shared/lib/hooks/user';
 
@@ -9,19 +9,14 @@ type AuthProviderProps = {
 
 const AuthContext: React.FC<AuthProviderProps> = ({ children }) => {
   const isAuth = useUserStore((state) => state.isAuth);
-  const setIsAuth = useUserStore((state) => state.setIsAuth);
-  const setUser = useUserStore((state) => state.setUser);
   const { mutateAsync: getCurrentUser } = useGetCurrentUser();
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   useLayoutEffect(() => {
     const getUser = async () => {
       try {
-        const result = await getCurrentUser();
-        if (result.isSuccess) {
-          setIsAuth(true)
-          setUser(result.data);
-        }
+        await getCurrentUser();
       } catch (error) {
         // Handle any error during data fetching
         console.error('Error fetching user data:', error);
@@ -33,7 +28,15 @@ const AuthContext: React.FC<AuthProviderProps> = ({ children }) => {
     }
     if (!isAuth) {
       navigate('/sign-in');
+    } else if (
+      pathname === '/sign-in' ||
+      pathname === '/sign-up' ||
+      pathname === '/forgot-password' ||
+      pathname === '/reset-password'
+    ) {
+      navigate('/');
     }
+
     // eslint-disable-next-line no-use-before-define
   }, [isAuth]);
 

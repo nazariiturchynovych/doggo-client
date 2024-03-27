@@ -1,10 +1,9 @@
 import React from 'react';
 import { Loader } from '@/shared/ui';
-import { Guid } from 'typescript-guid';
 import { useGetDog } from '@/widgets/dog/dog-card/lib/hooks';
 
 type UserCardProps = {
-  id: Guid;
+  id: string;
 };
 
 export const DogCard: React.FC<UserCardProps> = ({ id }) => {
@@ -15,15 +14,13 @@ export const DogCard: React.FC<UserCardProps> = ({ id }) => {
 
   const dog = data.data;
   return (
-    <div className="flex w-full min-w-60 flex-col items-center justify-center gap-5">
-      <div className="flex w-full items-center justify-center rounded-md bg-white p-4 shadow-md">
-        <img
-          className="max-w-screen-md"
-          src="/src/shared/assets/images/dog-image-mock.jpg"
-          alt="dog"
-        />
-      </div>
-      <div className="flex w-full justify-between rounded-md bg-white p-4 shadow-md">
+    <div className="flex w-full flex-col items-center justify-center gap-5 rounded-md border bg-white p-4 shadow-md">
+      <img
+        className="w-full max-w-screen-md"
+        src="/src/shared/assets/images/dog-image-mock.jpg"
+        alt="dog"
+      />
+      <div className="flex w-full justify-between ">
         <div className="flex flex-col">
           <div className="font-bold">{dog.name}</div>
           <div>Age: {dog.age}</div>
