@@ -1,30 +1,28 @@
 import * as z from 'zod';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
+  Button,
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage, Input, Textarea,
+  FormMessage,
+  Input,
+  Loader,
+  Textarea,
 } from '@/shared/ui';
-import { Button, Loader } from '@/shared/ui';
-import { Guid } from 'typescript-guid';
 import { useUserStore } from '@/entities/user';
 import { JobRequestSchema } from '@/features/create-job-request/models/models.ts';
 import { useCreateJobRequest, useGetDogOwnerDogs } from '@/features/create-job-request/lib/hooks';
 import { DogCarouselInput } from '@/features/create-job-request/ui/DogCarouselInput.tsx';
 import DateTimePicker from '@/features/create-job-request/ui/DateTimePicker.tsx';
-import { CreateJobRequestRequestProps } from '@/shared/api/job-request-api';
 
 const JobRequestForm = () => {
-  const user = useUserStore(state => state.user);
-  const navigate = useNavigate();
+  const user = useUserStore((state) => state.user);
   const { mutateAsync: createJobRequest, isPending: isLoadingCreate } = useCreateJobRequest();
-  const { data } = useGetDogOwnerDogs({ id: user.dogOwnerId || Guid.EMPTY });
-
+  const { data } = useGetDogOwnerDogs({ id: user.dogOwnerId || '' });
 
   const form = useForm<z.infer<typeof JobRequestSchema>>({
     resolver: zodResolver(JobRequestSchema),
@@ -34,55 +32,53 @@ const JobRequestForm = () => {
       isPersonalIdentifierRequired: false,
       paymentTo: 0,
       requiredAge: 0,
-      requiredScheduleResponse: { from: '', to: '' },
+      requiredScheduleResponse: { from: new Date().toISOString(), to: new Date().toISOString() },
     },
   });
 
   const handleSubmit = async (value: z.infer<typeof JobRequestSchema>) => {
+    console.log(value);
 
-
-    const response = await createJobRequest(value as CreateJobRequestRequestProps);
+    const response = await createJobRequest(value);
 
     console.log('response', response);
-
-    if (response.isSuccess) {
-      navigate('/');
-    }
-
   };
 
+  const buttonDisabled = data?.data && data.data.length > 0;
+
   return (
-    <div className='flex justify-center items-center p-5 shadow-md h-auto'>
-
-
+    <div className="flex h-auto items-center justify-center p-5">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(handleSubmit)}
-          className='flex w-full max-w-3xl flex-col  gap-9 justify-center items-center'>
-
-          <DogCarouselInput dogs={data?.data ?? []} onSelect={(dogId) => {
-            console.log(form.getValues('dogId'));
-            form.setValue('dogId', dogId);
-          }} />
+          className="flex w-full max-w-3xl flex-col  items-center justify-center gap-9">
+          <DogCarouselInput
+            dogs={data?.data ?? []}
+            onSelect={(dogId) => {
+              console.log(form.getValues('dogId'));
+              form.setValue('dogId', dogId);
+            }}
+          />
 
           <DateTimePicker
-            setValueFrom={(timeFrom) => {
-              form.setValue('requiredScheduleResponse', { from: timeFrom, to: form.getValues('requiredScheduleResponse.to') });
+            setScheduleValue={(timeFrom, timeTo) => {
+              form.setValue('requiredScheduleResponse', {
+                from: timeFrom.toISOString(),
+                to: timeTo.toISOString(),
+              });
             }}
-            setValueTo={(timeTo) => {
-              form.setValue('requiredScheduleResponse', { from: form.getValues('requiredScheduleResponse.from'), to: timeTo });
-            }} />
+          />
 
           <FormField
             control={form.control}
-            name='description'
+            name="description"
             render={({ field }) => (
-              <FormItem className='w-full'>
-                <FormLabel >Describe what you want from walker</FormLabel>
+              <FormItem className="w-full">
+                <FormLabel>Describe what you want from walker</FormLabel>
                 <FormControl>
                   <Textarea
-                    placeholder='Go near river, allow to iteract with other dogs'
-                    className='resize-none'
+                    placeholder="Go near river, allow to iteract with other dogs"
+                    className="resize-none"
                     {...field}
                   />
                 </FormControl>
@@ -93,12 +89,12 @@ const JobRequestForm = () => {
 
           <FormField
             control={form.control}
-            name='isPersonalIdentifierRequired'
+            name="isPersonalIdentifierRequired"
             render={({ field }) => (
-              <FormItem className='flex items-center gap-5 p-2 w-full'>
+              <FormItem className="flex w-full items-center gap-5 p-2">
                 <FormLabel>Walker need to have personal identifier?</FormLabel>
                 <FormControl>
-                  <Input type='checkbox' {...field} className='w-10'/>
+                  <Input type="checkbox" {...field} className="w-10" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -106,12 +102,12 @@ const JobRequestForm = () => {
           />
           <FormField
             control={form.control}
-            name='paymentTo'
+            name="paymentTo"
             render={({ field }) => (
-              <FormItem className='w-full'>
+              <FormItem className="w-full">
                 <FormLabel>Payment</FormLabel>
                 <FormControl>
-                  <Input type='number' {...field} value={field.value} />
+                  <Input type="number" {...field} value={field.value} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -120,25 +116,21 @@ const JobRequestForm = () => {
 
           <FormField
             control={form.control}
-            name='requiredAge'
+            name="requiredAge"
             render={({ field }) => (
-              <FormItem className='w-full'>
+              <FormItem className="w-full">
                 <FormLabel>How old need to be walker?</FormLabel>
                 <FormControl>
-                  <Input type='number' {...field} value={field.value} />
+                  <Input type="number" {...field} value={field.value} />
                 </FormControl>
-                <FormMessage className='shad-form_message' />
+                <FormMessage className="shad-form_message" />
               </FormItem>
             )}
           />
 
-          <div className='flex items-center justify-between gap-4 w-full'>
-            <Button type='button' onClick={() => navigate(-1)}>
-              Cancel
-            </Button>
-            <Button
-              type='submit'
-              className=' whitespace-nowrap'>
+          <div className="flex w-full flex-col items-center justify-center gap-4">
+            {!buttonDisabled && <FormMessage>Please create dog first</FormMessage>}
+            <Button disabled={!buttonDisabled} type="submit" className=" whitespace-nowrap">
               {isLoadingCreate && <Loader />}
               Create JobRequest
             </Button>
