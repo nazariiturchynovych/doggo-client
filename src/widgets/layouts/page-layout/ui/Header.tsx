@@ -44,6 +44,9 @@ export const Header: React.FC = () => {
         }>
         {isAuth && (
           <>
+            <Link to={'/chat'}>
+              <div>Chats</div>
+            </Link>
             <Link to={'/explore'}>
               <div>Explore</div>
             </Link>

@@ -3,23 +3,23 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
+  Button,
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
+  Loader,
   Textarea,
 } from '@/shared/ui';
-import { Button, Loader } from '@/shared/ui';
 import { JobSchema } from '@/features/create-job/models/models.ts';
 import { useCreateJob } from '@/features/create-job/lib/hooks';
 import { CreateJobRequestProps } from '@/shared/api/job-api';
-import { Guid } from 'typescript-guid';
 import { FC } from 'react';
 
 type JobFormProps = {
-  jobRequestId: Guid;
+  jobRequestId: string;
 };
 
 const JobForm: FC<JobFormProps> = ({ jobRequestId }) => {

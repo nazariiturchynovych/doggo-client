@@ -2,6 +2,7 @@ import { PageLayout } from '@/widgets';
 import './index.css';
 import { Route, Routes } from 'react-router-dom';
 import {
+  Chat,
   DogOwnerProfile,
   Explore,
   ForgotPassword,
@@ -36,6 +37,7 @@ function App() {
           <Route path="/dog-owner-profile/:id" element={<DogOwnerProfile />} />
           <Route path="/job-request-info/:id" element={<JobRequestInfo />} />
           <Route path="/schedule" element={<Schedule />} />
+          <Route path="/chat" element={<Chat />} />
           <Route path="*" element={<Explore />} />
         </Route>
       </Routes>
