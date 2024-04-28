@@ -17,7 +17,7 @@ const JobRequestScroll: React.FC = () => {
   const hasNextPage = data.pages[data.pages.length - 1].data.hasNextPage;
 
   return (
-    <div className="flex w-full flex-col items-center gap-3 px-10">
+    <>
       {data &&
         data.pages &&
         data.pages.map((page, index) => (
@@ -33,10 +33,10 @@ const JobRequestScroll: React.FC = () => {
             <Loader size={100} />
           </div>
         ) : (
-          <div>That`s all job requests</div>
+          <div className={'m-4 text-center text-lg font-bold'}>That`s all job requests</div>
         )}
       </InfiniteScroll>
-    </div>
+    </>
   );
 };
 

@@ -17,7 +17,7 @@ export const DogCard: React.FC<UserCardProps> = ({ id }) => {
     <div className="flex w-full flex-col items-center justify-center gap-5 rounded-md border bg-white p-4 shadow-md">
       <img
         className="w-full max-w-screen-md"
-        src="/src/shared/assets/images/dog-image-mock.jpg"
+        src="/src/shared/assets/images/dogmock5.jpg"
         alt="dog"
       />
       <div className="flex w-full justify-between ">

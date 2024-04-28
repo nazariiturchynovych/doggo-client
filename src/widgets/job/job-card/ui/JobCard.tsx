@@ -16,12 +16,7 @@ const JobCard: React.FC<JobCardProps> = ({ job }) => {
       <div className="center relative flex w-full justify-between gap-3 rounded-md border bg-white p-5 shadow-md">
         <div className="flex gap-2">
           <div className="border">
-            <img
-              src="/src/shared/assets/images/dog-image-mock.jpg"
-              height={150}
-              width={150}
-              alt=""
-            />
+            <img src="/src/shared/assets/images/dogmock5.jpg" height={150} width={150} alt="" />
           </div>
           <div className="flex h-full flex-col">
             <div>Doggo</div>
