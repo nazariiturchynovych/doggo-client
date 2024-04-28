@@ -13,10 +13,10 @@ type PaginatedJobsProps = {
 export const PaginatedJobs: React.FC<PaginatedJobsProps> = ({ jobs, isLoading }) => {
   const [currentPage, setCurrentPage] = useState(1);
   return (
-    <div className="rounded border shadow-md">
+    <div className="rounded-b-md border-t bg-white">
       <div className="p-2 text-center text-xl font-bold">Jobs</div>
       <div className="flex flex-col items-center justify-center">
-        <div className="max-h-96 w-full overflow-scroll p-5">
+        <div className="max-h-[470px] w-full overflow-scroll p-5">
           {isLoading && <JobSkeleton />}
           {jobs.length > 0 && <JobList jobs={getPageFromArray<Job>(jobs, currentPage)} />}
         </div>

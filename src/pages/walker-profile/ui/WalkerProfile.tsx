@@ -1,8 +1,7 @@
 import React from 'react';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { PaginatedJobs } from '@/widgets/job/paginated-jobs/ui/PaginatedJobs.tsx';
-import { PaginatedJobsRequests } from '@/widgets/job-request/paginated-job-requests/ui/PaginatedJobsRequests.tsx';
-import { useGetWalkerJobRequests, useGetWalkerJobs } from '@/pages/walker-profile/lib/hooks';
+import { useGetWalkerJobs } from '@/pages/walker-profile/lib/hooks';
 import { useGetWalker } from '@/widgets/walker/walker-card/lib/hooks';
 import { WalkerCard } from '@/widgets/walker/walker-card/ui/WalkerCard.tsx';
 
@@ -15,9 +14,6 @@ export const WalkerProfile: React.FC = () => {
 
   const { data: walkerResponse, isLoading: isWalkerLoading } = useGetWalker({ id: id! });
 
-  const { data: jobRequestsResponse, isLoading: isJobRequestsLoading } = useGetWalkerJobRequests({
-    id: id!,
-  });
   const { data: dogOwnerJobsResponse, isLoading: isJobsLoading } = useGetWalkerJobs({
     id: id!,
   });
@@ -26,16 +22,12 @@ export const WalkerProfile: React.FC = () => {
     return <Navigate to={'create-walker'} />;
   }
 
-  const jobRequests = jobRequestsResponse?.data;
   const jobs = dogOwnerJobsResponse?.data;
 
   return (
-    <div className="flex h-full w-full flex-col gap-5 pt-5">
+    <div className="flex h-full w-full flex-col rounded-md border bg-white pt-5 shadow-sm">
       <WalkerCard walker={walkerResponse?.data} isLoading={isWalkerLoading} />
-      <div className="flex flex-col gap-5 bg-white">
-        <PaginatedJobs jobs={jobs ?? []} isLoading={isJobsLoading} />
-        <PaginatedJobsRequests jobRequests={jobRequests ?? []} isLoading={isJobRequestsLoading} />
-      </div>
+      <PaginatedJobs jobs={jobs ?? []} isLoading={isJobsLoading} />
     </div>
   );
 };

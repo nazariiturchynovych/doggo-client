@@ -20,9 +20,6 @@ export const Header: React.FC = () => {
   const user = useUserStore((state) => state.user);
   const signOut = useUserStore((state) => state.signOut);
   const [openBurgerMenu, setOpenBurgerMenu] = useState(false);
-  const onClick = () => {
-    setOpenBurgerMenu(!openBurgerMenu);
-  };
 
   const onClickSignOut = () => {
     signOut();
@@ -30,7 +27,7 @@ export const Header: React.FC = () => {
   };
 
   return (
-    <div className="flex w-full items-center justify-between bg-primary p-4 text-white">
+    <div className="flex w-full items-center justify-between border-b-2 p-4">
       <div className="h-full">
         <Link to={'/'}>
           <img src="/src/shared/assets/images/loggo.svg" height={56} width={56} alt="" />
@@ -39,7 +36,7 @@ export const Header: React.FC = () => {
       <div
         className={
           openBurgerMenu
-            ? 'absolute left-0 top-0 z-50 flex h-screen w-full flex-col items-center justify-center gap-20 bg-white text-xl text-black'
+            ? 'absolute left-0 top-0 z-50 flex h-screen w-full flex-col items-center justify-center gap-20 bg-gray-50 text-xl text-black'
             : 'hidden items-center justify-center gap-8 sm:flex'
         }>
         {isAuth && (
@@ -47,18 +44,34 @@ export const Header: React.FC = () => {
             <Link to={'/chat'}>
               <div>Chats</div>
             </Link>
+
             <Link to={'/explore'}>
               <div>Explore</div>
             </Link>
+
             <Link to={'/schedule'}>
               <div>Schedule</div>
+            </Link>
+            <Link
+              className={'sm:hidden'}
+              to={user.walkerId ? `/walker-profile/${user.walkerId.toString()}` : '/create-walker'}>
+              Walker
+            </Link>
+            <Link
+              className={'sm:hidden'}
+              to={
+                user.dogOwnerId
+                  ? `/dog-owner-profile/${user.dogOwnerId.toString()}`
+                  : '/create-dog-owner'
+              }>
+              DogOwner
             </Link>
           </>
         )}
       </div>
       {isAuth ? (
         <Popover>
-          <PopoverTrigger>
+          <PopoverTrigger className={'hidden sm:block '}>
             <Avatar className="h-10 w-10 bg-white">
               <AvatarImage
                 src="/src/shared/assets/images/avatar.svg"
@@ -100,7 +113,7 @@ export const Header: React.FC = () => {
         </Button>
       )}
 
-      <BurgerButton onClick={onClick} />
+      <BurgerButton open={openBurgerMenu} setOpen={(open) => setOpenBurgerMenu(open)} />
     </div>
   );
 };

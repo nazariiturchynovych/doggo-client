@@ -30,7 +30,7 @@ export const WalkerCard: React.FC<WalkerCardProps> = ({ walker, isLoading }) => 
   }
 
   return (
-    <div className="flex flex-col justify-between rounded-md bg-white p-4 shadow-md">
+    <div className="flex flex-col justify-between bg-white p-4">
       <div className="mb-2 flex w-full gap-3">
         <Avatar>
           <AvatarImage

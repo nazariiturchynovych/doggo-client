@@ -7,7 +7,6 @@ export type Job = {
   dogOwnerId: string;
   dogId: string;
   comment: string;
-  salary: number;
   jobStatus: JobStatus;
   dog: Dog;
   jobRequest: JobRequest;
