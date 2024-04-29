@@ -11,7 +11,7 @@ const BurgerButton: React.FC<BurgerButtonProps> = ({ open, setOpen }) => {
       onClick={() => {
         setOpen(!open);
       }}
-      className="group relative z-[100] sm:hidden">
+      className="group relative z-[100] md:hidden">
       <div className="relative flex h-[50px] w-[50px] transform items-center justify-center overflow-hidden rounded-full bg-white shadow-xl transition-all duration-200">
         <div className="flex h-[20px] w-[20px] origin-center transform flex-col justify-between overflow-hidden transition-all duration-300">
           <div
