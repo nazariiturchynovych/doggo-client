@@ -16,7 +16,7 @@ export const Schedule: React.FC = () => {
     return <Loader />;
   }
   return (
-    <div className="m-5 flex h-full flex-col rounded-xl border bg-white">
+    <div className="m-5 flex h-screen flex-col rounded-xl border bg-white">
       <header className="flex content-center items-center justify-between border-b border-gray-300 px-6 py-4">
         <div>
           <p className=" font-semibold leading-6">
@@ -54,12 +54,13 @@ export const Schedule: React.FC = () => {
         </Popover>
       </header>
       <div className="isolate flex flex-1 flex-col">
-        <div className="flex w-full flex-col p-5 last:border-b-0 ">
+        <div className="flex h-full w-full flex-col overflow-y-auto p-5 last:border-b-0 ">
           {data.data.map((job) => (
             <JobCard job={job} />
           ))}
         </div>
       </div>
+      <div>a</div>
     </div>
   );
 };

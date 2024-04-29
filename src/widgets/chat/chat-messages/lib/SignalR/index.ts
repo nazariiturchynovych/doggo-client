@@ -43,7 +43,7 @@ export class SignalRService {
     }
   };
 
-  // Method to handle received messages
+  // Method to handle received chat-messages
   onReceiveMessage = (handler: (message: Message) => void): void => {
     if (this.connection) {
       this.connection.on('ReceiveMessage', handler);

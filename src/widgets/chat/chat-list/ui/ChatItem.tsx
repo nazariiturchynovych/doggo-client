@@ -2,12 +2,7 @@ import React from 'react';
 
 type ConversationItemProps = { active: boolean; time: string; name: string; message: string };
 
-export const ConversationItem: React.FC<ConversationItemProps> = ({
-  active,
-  time,
-  name,
-  message,
-}) => {
+export const ChatItem: React.FC<ConversationItemProps> = ({ active, time, name, message }) => {
   const _class = active ? 'bg-gray-200' : 'bg-white';
   return (
     <div className={'w-full'}>
@@ -38,4 +33,4 @@ export const ConversationItem: React.FC<ConversationItemProps> = ({
   );
 };
 
-export default ConversationItem;
+export default ChatItem;

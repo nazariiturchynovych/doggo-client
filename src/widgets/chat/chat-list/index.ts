@@ -1,2 +1,2 @@
-export * from './ui/Conversation.tsx';
-export * from './ui/ConversationItem.tsx';
+export * from './ui/ChatList.tsx';
+export * from './ui/ChatItem.tsx';

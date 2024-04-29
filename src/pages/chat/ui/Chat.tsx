@@ -1,10 +1,8 @@
-import Conversation from '../../../widgets/chat/chat-list/ui/Conversation.tsx';
+import ChatList from '@/widgets/chat/chat-list/ui/ChatList.tsx';
+import { ChatMessages } from '@/widgets/chat/chat-messages/ui/ChatMessages';
 import React, { useState } from 'react';
-import { useUserStore } from '@/entities/user';
-import Messages from '@/widgets/chat/chat-box/ui/Messages.tsx';
 
-const Chat: React.FC = () => {
-  const user = useUserStore((state) => state.user);
+export const Chat: React.FC = () => {
   const [selectedChat, setSelectedChat] = useState<string | null>(null);
 
   return (
@@ -38,15 +36,13 @@ const Chat: React.FC = () => {
               </div>
             </div>
             <div className="font-semibol p-3 text-lg text-gray-600 dark:text-gray-200">Recent</div>
-            <Conversation selectedChat={selectedChat} setSelectedChat={setSelectedChat} />
+            <ChatList selectedChat={selectedChat} setSelectedChat={setSelectedChat} />
           </div>
         </div>
         <div className="h-screen w-full rounded-md p-2">
-          <Messages chatId={selectedChat} />
+          <ChatMessages chatId={selectedChat} />
         </div>
       </div>
     </div>
   );
 };
-
-export default Chats;

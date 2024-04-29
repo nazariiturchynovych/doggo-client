@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { useUserStore } from '@/entities/user';
-import { useGetChat } from '@/widgets/chat/chat-box/lib/hooks';
-import { signalRService } from '@/widgets/chat/chat-box';
+import { useGetChat } from '@/widgets/chat/chat-messages/lib/hooks';
 import { Input, Loader } from '@/shared/ui';
 import { cn } from '@/shared/lib/utils.ts';
-import { formatTimeDifference } from '@/widgets/chat/chat-list/ui/Conversation.tsx';
+import { formatTimeDifference } from '@/widgets/chat/chat-list/lib/utils.ts';
+import { signalRService } from '@/widgets/chat/chat-messages';
 
 type ChatBoxProps = {
   chatId: string | null;
 };
-const Messages: React.FC<ChatBoxProps> = ({ chatId }) => {
+export const ChatMessages: React.FC<ChatBoxProps> = ({ chatId }) => {
   const queryClient = useQueryClient();
   const user = useUserStore((state) => state.user);
   console.log('messages', chatId);
@@ -33,7 +33,7 @@ const Messages: React.FC<ChatBoxProps> = ({ chatId }) => {
     setMessage('');
     signalRService.joinChat(chatId || '');
     // Example: send message to SignalR hub
-    signalRService.sendMessage(chatId || '', message); //TODO invalidate query nad get new messages
+    signalRService.sendMessage(chatId || '', message); //TODO invalidate query nad get new chat-messages
 
     queryClient.invalidateQueries({
       queryKey: [chatId],
@@ -72,7 +72,7 @@ const Messages: React.FC<ChatBoxProps> = ({ chatId }) => {
               />
             </div>
             <div className="§p-2">
-              <div className="text-md font-semibold text-gray-50">Rey Jhon A. Baquirin</div>
+              <div className="text-md font-semibold text-gray-50">{data.data.name}</div>
               <div className="flex items-center">
                 <div className="h-2 w-2 rounded-full bg-green-300"></div>
                 <div className="ml-1 text-xs text-gray-50">Online</div>
@@ -96,7 +96,7 @@ const Messages: React.FC<ChatBoxProps> = ({ chatId }) => {
           </div>
         </div>
       </div>
-      <div className="my-2 flex w-full flex-col overflow-y-auto bg-gray-100 p-2 dark:bg-gray-900">
+      <div className="my-2 flex h-full w-full flex-col overflow-y-auto bg-gray-100 p-2 dark:bg-gray-900">
         {data &&
           data.data.messages.length > 0 &&
           data.data.messages.map((message) => (
@@ -178,4 +178,4 @@ const Messages: React.FC<ChatBoxProps> = ({ chatId }) => {
   );
 };
 
-export default Messages;
+export default ChatMessages;
