@@ -17,7 +17,7 @@ export const NavMenu: React.FC = () => {
   };
 
   return (
-    <div className="top-0 flex w-full items-center justify-between gap-8 border-b bg-white p-4 pl-10 lg:sticky lg:h-screen lg:max-w-72 lg:flex-col lg:items-start lg:justify-start lg:border-r">
+    <div className="top-0 flex w-full items-center justify-between gap-8 border-b bg-white p-4 pl-10 lg:sticky lg:h-screen lg:max-w-60 lg:flex-col lg:items-start lg:justify-start lg:border-r">
       <div>
         <Link to={'/'}>
           <img src="/src/shared/assets/images/loggo.svg" height={56} width={56} alt="" />
