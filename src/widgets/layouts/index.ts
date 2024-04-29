@@ -1,1 +1,1 @@
-export { Header } from './page-layout/ui/Header.tsx';
+export { NavMenu } from './page-layout/ui/NavMenu.tsx';

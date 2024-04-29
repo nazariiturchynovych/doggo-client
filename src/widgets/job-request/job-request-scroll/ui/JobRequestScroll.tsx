@@ -9,7 +9,7 @@ const JobRequestScroll: React.FC = () => {
 
   if (!data) {
     return (
-      <div className="flex h-screen items-center justify-center">
+      <div className="flex items-center justify-center">
         <Loader size={200} />
       </div>
     );
@@ -17,7 +17,8 @@ const JobRequestScroll: React.FC = () => {
   const hasNextPage = data.pages[data.pages.length - 1].data.hasNextPage;
 
   return (
-    <>
+    <div className={'flex flex-col'}>
+      <div className={'border-b p-4 sm:p-8'}>h</div>
       {data &&
         data.pages &&
         data.pages.map((page, index) => (
@@ -28,15 +29,13 @@ const JobRequestScroll: React.FC = () => {
         isLoading={isFetching}
         next={fetchNextPage}
         threshold={1}>
-        {hasNextPage ? (
+        {hasNextPage && (
           <div>
             <Loader size={100} />
           </div>
-        ) : (
-          <div className={'m-4 text-center text-lg font-bold'}>That`s all job requests</div>
         )}
       </InfiniteScroll>
-    </>
+    </div>
   );
 };
 

@@ -54,7 +54,7 @@ export const Schedule: React.FC = () => {
         </Popover>
       </header>
       <div className="isolate flex flex-1 flex-col">
-        <div className="flex max-h-[620px] w-full flex-col overflow-scroll p-5 last:border-b-0 ">
+        <div className="flex w-full flex-col p-5 last:border-b-0 ">
           {data.data.map((job) => (
             <JobCard job={job} />
           ))}

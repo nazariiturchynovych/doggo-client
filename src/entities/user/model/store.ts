@@ -40,7 +40,7 @@ export const useUserStore = create<UserState>()(
       }),
     getCurrentUser: async () => {
       const reqProps: GetUserRequestProps = {
-        id: undefined,
+        id: '',
       };
       const response = await userApi.getUser(reqProps);
 
