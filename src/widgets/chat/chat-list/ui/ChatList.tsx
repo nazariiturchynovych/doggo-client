@@ -1,9 +1,9 @@
 import ChatItem from './ChatItem.tsx';
 import React from 'react';
 import { useUserStore } from '@/entities/user';
-import { useGetChats } from '@/widgets/chat/chat-list/lib/hooks';
 import { Loader } from '@/shared/ui';
 import { formatTimeDifference } from '@/widgets/chat/chat-list/lib/utils.ts';
+import { useGetChats } from '@/shared/hooks';
 
 type ChatListProps = {
   setSelectedChat: (id: string) => void;

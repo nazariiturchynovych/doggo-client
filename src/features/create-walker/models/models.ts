@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 export const WalkerSchema = z.object({
+  id: z.string(),
   skills: z
     .string()
     .min(5, { message: 'Minimum 5 characters.' })

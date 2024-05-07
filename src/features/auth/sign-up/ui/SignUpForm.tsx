@@ -17,7 +17,7 @@ import { useSignUp } from '@/features/auth/sign-up/lib/hooks';
 import { LoginFacebook, LoginGoogle, useSignInUser } from '@/features/auth/sign-in';
 import { SignUpSchema } from '@/features/auth/sign-up/models/models.ts';
 import { useToast } from '@/shared/ui/use-toast.ts';
-import { useGetCurrentUser } from '@/shared/lib/hooks/user';
+import { useGetCurrentUser } from 'src/shared/hooks/user';
 
 function SignUpForm() {
   const { toast } = useToast();

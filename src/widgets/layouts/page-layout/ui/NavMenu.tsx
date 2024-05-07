@@ -42,6 +42,9 @@ export const NavMenu: React.FC = () => {
             <Link to={'/schedule'}>
               <div>Schedule</div>
             </Link>
+            <Link to={'/mock/f349351c-6b2b-4c67-9afd-acfccbdf14c3'}>
+              <div>Mock`</div>
+            </Link>
             <Link
               className={'flex gap-2 sm:hidden'}
               to={user.walkerId ? `/walker-profile/${user.walkerId.toString()}` : '/create-walker'}>

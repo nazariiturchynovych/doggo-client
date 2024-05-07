@@ -2,21 +2,11 @@ import * as z from 'zod';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  Button,
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-  Input,
-  Loader,
-} from '@/shared/ui';
+import { Button, Form, Loader, SimpleFormInput } from '@/shared/ui';
 import { authenticationApi, RefreshTokenRequestProps } from '@/shared/api/auth-api';
 import { DogOwnerSchema } from '@/features/create-dog-owner/models/models.ts';
-import { useCreateDogOwner } from '@/features/create-dog-owner/lib/hooks';
 import { useUserStore } from '@/entities/user';
+import { useCreateDogOwner } from '@/shared/hooks';
 
 const DogOwnerForm = () => {
   const navigate = useNavigate();
@@ -59,37 +49,17 @@ const DogOwnerForm = () => {
         <form
           onSubmit={form.handleSubmit(handleSubmit)}
           className="flex w-full max-w-5xl flex-col  gap-9">
-          <FormField
-            control={form.control}
-            name="address"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="shad-form_label">Write your address</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="some street, some house, some number"
-                    type="text"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage className="shad-form_message" />
-              </FormItem>
-            )}
+          <SimpleFormInput
+            fieldLabel={'Write your address'}
+            inputPlaceholder={'some street, some house, some number'}
+            fieldName={'address'}
+            inputType={'text'}
           />
-          <FormField
-            control={form.control}
-            name="district"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="shad-form_label">Write your district</FormLabel>
-                <FormControl>
-                  <Input placeholder="your district" type="text" {...field} />
-                </FormControl>
-                <FormMessage className="shad-form_message" />
-              </FormItem>
-            )}
+          <SimpleFormInput
+            fieldLabel={'Write your district'}
+            fieldName={'district'}
+            inputType={'text'}
           />
-
           <div className="flex items-center justify-end gap-4">
             <Button type="button" className="shad-button_dark_4" onClick={() => navigate(-1)}>
               Cancel

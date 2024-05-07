@@ -3,16 +3,18 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
+  Button,
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
+  Input,
+  Loader,
 } from '@/shared/ui';
-import { Button, Input, Loader } from '@/shared/ui';
 import { ConfirmForgotPasswordSchema } from '../models/models.ts';
-import { useConfirmForgotPassword } from '../lib/hooks';
+import { useConfirmForgotPassword } from '@/shared/hooks';
 
 export function ResetPasswordForm() {
   const [searchParams] = useSearchParams();
@@ -87,4 +89,3 @@ export function ResetPasswordForm() {
     </>
   );
 }
-

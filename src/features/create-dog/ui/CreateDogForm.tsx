@@ -1,22 +1,11 @@
 import * as z from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  Button,
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-  Input,
-  Loader,
-  Textarea,
-} from '@/shared/ui';
+import { Button, Form, Loader, SimpleFormInput } from '@/shared/ui';
 import { DogSchema } from '@/features/create-dog/models/models.ts';
-import { useCreateDog } from '@/features/create-dog/lib/hooks';
 import { Guid } from 'typescript-guid';
 import { useUserStore } from '@/entities/user';
+import { useCreateDog } from '@/shared/hooks';
 
 const DogForm = () => {
   const user = useUserStore((state) => state.user);
@@ -37,8 +26,9 @@ const DogForm = () => {
 
   // Handler
   const handleSubmit = async (value: z.infer<typeof DogSchema>) => {
+    console.log(value);
     value.dogOwnerId = user.dogOwnerId?.toString() || Guid.EMPTY.toString();
-
+    console.log('fsdfds');
     await createDog(value);
   };
 
@@ -48,65 +38,28 @@ const DogForm = () => {
         <form
           onSubmit={form.handleSubmit(handleSubmit)}
           className="flex w-full max-w-5xl flex-col  gap-9">
-          <FormField
-            control={form.control}
-            name="name"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="shad-form_label">Name of your doggie</FormLabel>
-                <FormControl>
-                  <Input type="text" className="shad-input" {...field} />
-                </FormControl>
-                <FormMessage className="shad-form_message" />
-              </FormItem>
-            )}
+          <SimpleFormInput
+            fieldLabel={'Name of your doggie'}
+            fieldName={'name'}
+            inputType={'text'}
           />
-          <FormField
-            control={form.control}
-            name="age"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="shad-form_label">What is age of your dog</FormLabel>
-                <FormControl>
-                  <Input type="number" className="shad-input" {...field} value={field.value} />
-                </FormControl>
-                <FormMessage className="shad-form_message" />
-              </FormItem>
-            )}
+          <SimpleFormInput
+            fieldLabel={'What is age of your dog'}
+            fieldName={'age'}
+            inputType={'number'}
           />
-
-          <FormField
-            control={form.control}
-            name="description"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="shad-form_label">Write about your dog</FormLabel>
-                <FormControl>
-                  <Textarea
-                    placeholder="Love to smile, bite sticks, swiw through Atlantic ocean"
-                    className="resize-none"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage className="shad-form_message" />
-              </FormItem>
-            )}
+          <SimpleFormInput
+            fieldLabel={'How much does your dog weigh?'}
+            fieldName={'weight'}
+            inputType={'number'}
           />
-
-          <FormField
-            control={form.control}
-            name="weight"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="shad-form_label">How much does your dog weigh?</FormLabel>
-                <FormControl>
-                  <Input type="number" step={0.1} className="shad-input" {...field} />
-                </FormControl>
-                <FormMessage className="shad-form_message" />
-              </FormItem>
-            )}
+          <SimpleFormInput
+            fieldLabel={'Write about your dog'}
+            fieldName={'description'}
+            inputPlaceholder={'Love to smile, bite sticks, swiw through Atlantic ocean'}
+            inputType={''}
+            textArea={true}
           />
-
           <div className="flex items-center justify-between gap-4">
             <Button type="submit" className="shad-button_primary whitespace-nowrap">
               {isLoadingCreate && <Loader />}

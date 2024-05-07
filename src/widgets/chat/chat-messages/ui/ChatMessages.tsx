@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { useUserStore } from '@/entities/user';
-import { useGetChat } from '@/widgets/chat/chat-messages/lib/hooks';
 import { Input, Loader } from '@/shared/ui';
 import { cn } from '@/shared/lib/utils.ts';
 import { formatTimeDifference } from '@/widgets/chat/chat-list/lib/utils.ts';
 import { signalRService } from '@/widgets/chat/chat-messages';
+import { useGetChat } from '@/shared/hooks';
 
 type ChatBoxProps = {
   chatId: string | null;
@@ -96,7 +96,7 @@ export const ChatMessages: React.FC<ChatBoxProps> = ({ chatId }) => {
           </div>
         </div>
       </div>
-      <div className="my-2 flex h-full w-full flex-col overflow-y-auto bg-gray-100 p-2 dark:bg-gray-900">
+      <div className="my-2 flex h-full w-full flex-col overflow-y-auto p-2 dark:bg-gray-900">
         {data &&
           data.data.messages.length > 0 &&
           data.data.messages.map((message) => (

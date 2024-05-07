@@ -1,8 +1,8 @@
 import React from 'react';
-import { useGetPageOfJobRequests } from '@/widgets/job-request/job-request-scroll/lib/hooks';
 import InfiniteScroll from '@/shared/ui/infinite-scroll.tsx';
 import { Loader } from '@/shared/ui';
 import JobRequestList from '@/widgets/job-request/job-request-list/ui/JobRequestList.tsx';
+import { useGetPageOfJobRequests } from '@/shared/hooks';
 
 const JobRequestScroll: React.FC = () => {
   const { data, fetchNextPage, isFetching } = useGetPageOfJobRequests({ page: 1, pageCount: 10 });

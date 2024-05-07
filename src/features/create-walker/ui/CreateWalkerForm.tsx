@@ -2,20 +2,10 @@ import * as z from 'zod';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  Button,
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-  Loader,
-  Textarea,
-} from '@/shared/ui';
+import { Button, Form, Loader, SimpleFormInput } from '@/shared/ui';
 import { WalkerSchema } from '@/features/create-walker/models/models.ts';
 import { authenticationApi, RefreshTokenRequestProps } from '@/shared/api/auth-api';
-import { useCreateWalker } from '@/features/create-walker/lib/hooks';
+import { useCreateWalker } from '@/shared/hooks';
 
 const WalkerForm = () => {
   const navigate = useNavigate();
@@ -32,6 +22,7 @@ const WalkerForm = () => {
 
   // Handler
   const handleSubmit = async (value: z.infer<typeof WalkerSchema>) => {
+    console.log('fsdafsafa');
     const data = await createWalker(value);
 
     if (data.isSuccess) {
@@ -56,49 +47,27 @@ const WalkerForm = () => {
         <form
           onSubmit={form.handleSubmit(handleSubmit)}
           className="flex w-full max-w-5xl flex-col  gap-9">
-          <FormField
-            control={form.control}
-            name="skills"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="shad-form_label">Write about your skills</FormLabel>
-                <FormControl>
-                  <Textarea
-                    placeholder="Training, first aid, etc."
-                    className="resize-none"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage className="shad-form_message" />
-              </FormItem>
-            )}
+          <SimpleFormInput
+            inputPlaceholder={'Training, first AID'}
+            fieldLabel={'Skills:'}
+            fieldName={'skills'}
+            inputType={''}
+            textArea={true}
           />
-          <FormField
-            control={form.control}
-            name="about"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="shad-form_label">Write bout yourself</FormLabel>
-                <FormControl>
-                  <Textarea
-                    placeholder="Tell us a little bit about yourself"
-                    className="resize-none"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage className="shad-form_message" />
-              </FormItem>
-            )}
+          <div className={'flex w-full justify-between'}></div>
+          <SimpleFormInput
+            inputPlaceholder={'Love corgies'}
+            fieldLabel={'About'}
+            fieldName={'about'}
+            inputType={''}
+            textArea={true}
           />
 
           <div className="flex items-center justify-end gap-4">
-            <Button type="button" className="shad-button_dark_4" onClick={() => navigate(-1)}>
+            <Button type="button" onClick={() => navigate(-1)}>
               Cancel
             </Button>
-            <Button type="submit" className="shad-button_primary whitespace-nowrap">
-              {isLoadingCreate && <Loader />}
-              Create Walker
-            </Button>
+            <Button type="submit">{isLoadingCreate ? <Loader /> : 'Create Walker'}</Button>
           </div>
         </form>
       </Form>

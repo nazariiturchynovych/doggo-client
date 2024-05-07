@@ -2,21 +2,11 @@ import * as z from 'zod';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  Button,
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-  Loader,
-  Textarea,
-} from '@/shared/ui';
+import { Button, Form, Loader, SimpleFormInput } from '@/shared/ui';
 import { JobSchema } from '@/features/create-job/models/models.ts';
-import { useCreateJob } from '@/features/create-job/lib/hooks';
 import { CreateJobRequestProps } from '@/shared/api/job-api';
 import { FC } from 'react';
+import { useCreateJob } from '@/shared/hooks';
 
 type JobFormProps = {
   jobRequestId: string;
@@ -49,24 +39,12 @@ const JobForm: FC<JobFormProps> = ({ jobRequestId }) => {
         <form
           onSubmit={form.handleSubmit(handleSubmit)}
           className="flex w-full max-w-3xl flex-col  items-center justify-center gap-9">
-          <FormField
-            control={form.control}
-            name="comment"
-            render={({ field }) => (
-              <FormItem className="w-full">
-                <FormLabel className="font-bold">
-                  Write here if you want to tell something to owner
-                </FormLabel>
-                <FormControl>
-                  <Textarea
-                    placeholder="Go near river, allow to iteract with other dogs"
-                    className="resize-none"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+          <SimpleFormInput
+            fieldLabel={'Write here if you want to tell something to owner:'}
+            inputPlaceholder={'Go near river, allow to play with other dogs'}
+            fieldName={'comment'}
+            inputType={''}
+            textArea={true}
           />
           <div className="flex w-full items-center justify-between gap-4">
             <Button type="submit" className=" w-full">

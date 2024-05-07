@@ -12,9 +12,9 @@ import {
 } from '@/shared/ui/form.tsx';
 import { Button, Input, Loader } from '@/shared/ui';
 import { SignInSchema } from '@/features/auth/sign-in/models/models.ts';
-import { useSignInUser } from '@/features/auth/sign-in/lib/hooks';
-import { useGetCurrentUser } from '@/shared/lib/hooks/user';
-import { LoginGoogle, LoginFacebook } from '@/features/auth/sign-in';
+import { LoginFacebook, LoginGoogle } from '@/features/auth/sign-in';
+import { useSignInUser } from '@/shared/hooks';
+import { useGetCurrentUser } from 'src/shared/hooks/user';
 
 function SignInForm() {
   const { mutateAsync: loginUser, isPending } = useSignInUser();
@@ -38,18 +38,17 @@ function SignInForm() {
     }
   };
 
-
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className='flex w-full flex-col gap-5'>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex w-full flex-col gap-5">
         <FormField
           control={form.control}
-          name='email'
+          name="email"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder='Email' type='email' {...field} />
+                <Input placeholder="Email" type="email" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -57,41 +56,40 @@ function SignInForm() {
         />
         <FormField
           control={form.control}
-          name='password'
+          name="password"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input type='password' placeholder='Password' {...field} />
+                <Input type="password" placeholder="Password" {...field} />
               </FormControl>
-              <Button variant='link' className=' block h-0 w-full px-0 pb-2 pt-0 text-end'>
+              <Button variant="link" className=" block h-0 w-full px-0 pb-2 pt-0 text-end">
                 <Link to={'/forgot-password'}>Forgot password?</Link>
               </Button>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type='submit'>
+        <Button type="submit">
           {isPending ? (
-            <div className='flex-center gap-2'>
+            <div className="flex-center gap-2">
               <Loader />
             </div>
           ) : (
             'Log in'
           )}
         </Button>
-        <div className='flex flex-col'>
+        <div className="flex flex-col">
           <p>
             Dont have an account?{' '}
-            <Button variant='link' className=' px-0 text-base'>
+            <Button variant="link" className=" px-0 text-base">
               <Link to={'/sign-up'}>Register</Link>
             </Button>
           </p>
-          <div
-            className="relative my-4 flex w-full items-center justify-center before:flex-1 before:border-[1px] before:border-b-black before:content-[''] after:flex-1 after:border-[1px] after:border-b-black after:content-['']">
-            <p className='mx-4 mb-0 text-center text-xl font-semibold dark:text-white'>Or</p>
+          <div className="relative my-4 flex w-full items-center justify-center before:flex-1 before:border-[1px] before:border-b-black before:content-[''] after:flex-1 after:border-[1px] after:border-b-black after:content-['']">
+            <p className="mx-4 mb-0 text-center text-xl font-semibold dark:text-white">Or</p>
           </div>
-          <div className='flex flex-row items-center justify-center gap-2 lg:justify-start'>
+          <div className="flex flex-row items-center justify-center gap-2 lg:justify-start">
             <LoginGoogle />
             <LoginFacebook />
           </div>

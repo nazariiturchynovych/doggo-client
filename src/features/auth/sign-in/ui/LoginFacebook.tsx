@@ -1,7 +1,6 @@
 import React from 'react';
 import { LoginSocialFacebook } from 'reactjs-social-login';
-import { useSignInUserFacebook } from '../lib/hooks/index.ts';
-
+import { useSignInUserFacebook } from '@/shared/hooks';
 
 export const LoginFacebook: React.FC = () => {
   const { mutateAsync } = useSignInUserFacebook();

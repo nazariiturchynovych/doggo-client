@@ -2,16 +2,18 @@ import * as z from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
+  Button,
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage, Loader,
+  FormMessage,
+  Input,
+  Loader,
 } from '@/shared/ui';
-import { Button, Input } from '@/shared/ui';
 import { ForgotPasswordSchema } from '@/features/auth/forgot-password/models/models.ts';
-import { useForgotPassword } from '../lib/hooks';
+import { useForgotPassword } from '@/shared/hooks';
 
 export function ForgotPasswordForm() {
   const { mutateAsync: resetPasswordAsync, isPending, data } = useForgotPassword();
@@ -25,18 +27,16 @@ export function ForgotPasswordForm() {
 
   const onSubmit = async (values: z.infer<typeof ForgotPasswordSchema>) => {
     await resetPasswordAsync(values);
-
-
   };
-
 
   return data ? (
     <div className="max-w-[1100px]">
       <p className="mb-0 mt-5 text-2xl">Forgot your Doggo Account </p>
       <p className="mb-0 mt-5 text-xl">
-        We’ll check to see whether an account is associated with "{form.getValues('email')}" and if so, we will send
-        you instructions on how to reset your password. If you do not receive an email from us,
-        please make sure to use a valid email address to reset the password of your account.
+        We’ll check to see whether an account is associated with "{form.getValues('email')}" and if
+        so, we will send you instructions on how to reset your password. If you do not receive an
+        email from us, please make sure to use a valid email address to reset the password of your
+        account.
       </p>
     </div>
   ) : (
@@ -72,4 +72,3 @@ export function ForgotPasswordForm() {
     </>
   );
 }
-

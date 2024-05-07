@@ -16,6 +16,7 @@ import { Toaster } from '@/shared/ui';
 import { JobRequestInfo } from '@/pages/job-request-info';
 import WalkerForm from '@/features/create-walker/ui/CreateWalkerForm.tsx';
 import DogOwnerForm from '@/features/create-dog-owner/ui/CreateDogOwnerForm.tsx';
+import { UserProfile } from '@/pages/user-profile';
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
           <Route path="/schedule" element={<Schedule />} />
           <Route path="/chat" element={<Chat />} />
           <Route path="*" element={<Explore />} />
+          <Route path="/mock/:id" element={<UserProfile />} />
         </Route>
       </Routes>
       <Toaster />

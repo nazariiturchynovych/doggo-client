@@ -1,6 +1,6 @@
 import React from 'react';
 import { LoginSocialGoogle } from 'reactjs-social-login';
-import { useSignInUserGoogle } from '@/features/auth/sign-in/lib/hooks';
+import { useSignInUserGoogle } from '@/shared/hooks';
 
 type GoogleAuthProviderData = {
   provider: 'google';
