@@ -1,7 +1,7 @@
 import React, { ReactNode, useLayoutEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useUserStore } from '@/entities/user';
-import { useGetCurrentUser } from 'src/shared/hooks/user';
+import { useGetCurrentUser } from '@/shared/hooks';
 
 type AuthProviderProps = {
   children: ReactNode;

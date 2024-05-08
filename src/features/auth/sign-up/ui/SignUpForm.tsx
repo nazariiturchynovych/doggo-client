@@ -14,10 +14,10 @@ import {
   Loader,
 } from '@/shared/ui';
 import { useSignUp } from '@/features/auth/sign-up/lib/hooks';
-import { LoginFacebook, LoginGoogle, useSignInUser } from '@/features/auth/sign-in';
 import { SignUpSchema } from '@/features/auth/sign-up/models/models.ts';
 import { useToast } from '@/shared/ui/use-toast.ts';
-import { useGetCurrentUser } from 'src/shared/hooks/user';
+import { useGetCurrentUser, useSignInUser } from '@/shared/hooks';
+import { LoginFacebook, LoginGoogle } from '@/features/auth/sign-in';
 
 function SignUpForm() {
   const { toast } = useToast();
@@ -86,7 +86,7 @@ function SignUpForm() {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input type="password" placeholder="Password" {...field} />
+                <Input type="password" placeholder="Password" autoComplete={'on'} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

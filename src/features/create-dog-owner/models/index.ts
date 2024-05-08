@@ -1,7 +1,6 @@
 import { z } from 'zod';
 
-export const DogOwnerSchema = z.object({
-  id: z.string(),
+export const CreateDogOwnerSchema = z.object({
   address: z.string(),
   district: z.string(),
 });

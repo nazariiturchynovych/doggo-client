@@ -5,7 +5,5 @@ export { ResetPassword } from './_auth/reset-password/ui/ResetPassword.tsx';
 export { Chat } from './chat/ui/Chat.tsx';
 export { Explore } from './explore/ui/Explore.tsx';
 export { JobInfo } from './job-info/ui/JobInfo.tsx';
-export { DogOwnerProfile } from './dog-owner-profile/ui/DogOwnerProfile.tsx';
 export { JobRequestInfo } from './job-request-info/ui/JobRequestInfo.tsx';
-export { WalkerProfile } from './walker-profile/ui/WalkerProfile.tsx';
 export { Schedule } from './schedule/ui/Schedule.tsx';

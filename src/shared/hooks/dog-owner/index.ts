@@ -8,12 +8,27 @@ import {
 } from '@/shared/api/dog-owner-api';
 import { dogApi, GetDogOwnerDogsRequestProps } from '@/shared/api/dog-api';
 import { GetUserRequestProps, userApi } from '@/shared/api/user-api';
+import { getTokens, setTokens } from '@/shared/lib/utils.ts';
+import { authenticationApi } from '@/shared/api/auth-api';
 
 export const useCreateDogOwner = () => {
   const func = useDogOwnerStore((state) => state.createDogOwner);
+  const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (props: CreateDogOwnerRequestProps) => await func(props),
+    mutationFn: async (props: CreateDogOwnerRequestProps) => {
+      const data = await func(props);
+      if (data.isSuccess) {
+        const props = getTokens();
+
+        const data = await authenticationApi.refreshToken(props);
+        if (data.isSuccess) {
+          setTokens(data.data.token, data.data.refreshToken);
+          queryClient.invalidateQueries({ queryKey: ['getUser'] }); //TODO change query keys
+        }
+      }
+      return data;
+    },
     onError: (error) => console.error(JSON.stringify(error)),
   });
 };

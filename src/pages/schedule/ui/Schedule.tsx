@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Calendar, Loader, Popover, PopoverContent, PopoverTrigger } from '@/shared/ui';
 import JobCard from '@/widgets/job/job-card/ui/JobCard.tsx';
 import { useUserStore } from '@/entities/user';
-import { useGetWalkerJobs } from '@/pages/walker-profile/lib/hooks';
+import { useGetWalkerJobs } from '@/shared/hooks';
 
 export const Schedule: React.FC = () => {
   const user = useUserStore((state) => state.user);

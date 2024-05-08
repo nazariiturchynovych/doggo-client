@@ -1,5 +1,5 @@
 export type Walker = {
-  id: string | null;
+  id: string;
   userId: string;
   skills: string;
   about: string;

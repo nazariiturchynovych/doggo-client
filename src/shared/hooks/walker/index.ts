@@ -6,12 +6,26 @@ import {
   walkerApi,
 } from '@/shared/api/walker-api';
 import { GetDogOwnerRequestProps } from '@/shared/api/dog-owner-api';
+import { getTokens, setTokens } from '@/shared/lib/utils.ts';
+import { authenticationApi } from '@/shared/api/auth-api';
 
 export const useCreateWalker = () => {
   const func = useWalkerStore((state) => state.createWalker);
-
+  const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (props: CreateWalkerRequestProps) => await func(props),
+    mutationFn: async (props: CreateWalkerRequestProps) => {
+      const data = await func(props);
+      if (data.isSuccess) {
+        const props = getTokens();
+
+        const data = await authenticationApi.refreshToken(props);
+        if (data.isSuccess) {
+          setTokens(data.data.token, data.data.refreshToken);
+          queryClient.invalidateQueries({ queryKey: ['getUser'] }); //TODO change query keys
+        }
+      }
+      return data;
+    },
     onError: (error) => console.error(JSON.stringify(error)),
   });
 };

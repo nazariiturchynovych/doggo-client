@@ -56,7 +56,12 @@ export function ResetPasswordForm() {
               <FormItem>
                 <FormLabel>New password</FormLabel>
                 <FormControl>
-                  <Input placeholder="New password" type="password" {...field} />
+                  <Input
+                    placeholder="New password"
+                    type="password"
+                    autoComplete={'on'}
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -69,7 +74,12 @@ export function ResetPasswordForm() {
               <FormItem>
                 <FormLabel>Confirm password</FormLabel>
                 <FormControl>
-                  <Input placeholder="Confirm password" type="password" {...field} />
+                  <Input
+                    placeholder="Confirm password"
+                    type="password"
+                    autoComplete={'on'}
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>

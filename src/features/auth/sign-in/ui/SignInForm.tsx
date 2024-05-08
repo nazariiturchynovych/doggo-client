@@ -13,8 +13,7 @@ import {
 import { Button, Input, Loader } from '@/shared/ui';
 import { SignInSchema } from '@/features/auth/sign-in/models/models.ts';
 import { LoginFacebook, LoginGoogle } from '@/features/auth/sign-in';
-import { useSignInUser } from '@/shared/hooks';
-import { useGetCurrentUser } from 'src/shared/hooks/user';
+import { useGetCurrentUser, useSignInUser } from '@/shared/hooks';
 
 function SignInForm() {
   const { mutateAsync: loginUser, isPending } = useSignInUser();
@@ -61,7 +60,7 @@ function SignInForm() {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input type="password" placeholder="Password" {...field} />
+                <Input type="password" placeholder="Password" autoComplete={'on'} {...field} />
               </FormControl>
               <Button variant="link" className=" block h-0 w-full px-0 pb-2 pt-0 text-end">
                 <Link to={'/forgot-password'}>Forgot password?</Link>

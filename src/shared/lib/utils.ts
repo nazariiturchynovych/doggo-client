@@ -1,8 +1,21 @@
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import { RefreshTokenRequestProps } from '@/shared/api/auth-api';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
+}
+
+export function getTokens(): RefreshTokenRequestProps {
+  return {
+    token: localStorage.getItem('token')!,
+    refreshToken: localStorage.getItem('refreshToken')!,
+  };
+}
+
+export function setTokens(token: string, refreshToken: string) {
+  localStorage.setItem('token', token);
+  localStorage.setItem('refreshToken', refreshToken);
 }
 
 export function createAvatarFallback(firstString: string, secondString?: string): string {

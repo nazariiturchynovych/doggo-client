@@ -4,7 +4,7 @@ export type CreateWalkerRequestProps = {
 };
 
 export type GetWalkerRequestProps = {
-  id?: string;
+  id: string;
 };
 
 export type GetPageOfWalkersRequestProps = {

@@ -1,12 +1,12 @@
 import React from 'react';
 import { Loader } from '@/shared/ui';
-import { useGetUser } from '@/widgets/dog-owner/dog-owner-card/lib/hooks';
 import { DividerHorizontal } from '@/shared/ui/divider-horizontal.tsx';
 import { DividerVertical } from '@/shared/ui/divider-vertical.tsx';
 import { UserCard } from '@/widgets';
 import { WalkerCard } from '@/widgets/walker/walker-card/ui/WalkerCard.tsx';
 import { useNavigate, useParams } from 'react-router-dom';
 import { DogOwnerCard } from '@/widgets/dog-owner/dog-owner-card/ui/DogOnwnerCard.tsx';
+import { useGetUser } from '@/shared/hooks';
 
 export const UserProfile: React.FC = () => {
   const { id } = useParams();
@@ -30,9 +30,9 @@ export const UserProfile: React.FC = () => {
           <DividerHorizontal className={'md:hidden'} />
           <DividerVertical className={'hidden md:block'} />
           <div className={'flex w-full flex-col gap-5 p-2 '}>
-            {user.walkerId ? <WalkerCard walkerId={user.walkerId} /> : <Loader />}
+            <WalkerCard walkerId={user.walkerId!} />
             <DividerHorizontal />
-            {user.dogOwnerId ? <DogOwnerCard dogOwnerId={user.dogOwnerId} /> : <Loader />}
+            <DogOwnerCard dogOwnerId={user.dogOwnerId!} />
           </div>
         </div>
         <DividerHorizontal />

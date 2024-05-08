@@ -1,6 +1,6 @@
 import React from 'react';
 import { Loader } from '@/shared/ui';
-import { useGetDog } from '@/widgets/dog/dog-card/lib/hooks';
+import { useGetDog } from '@/shared/hooks';
 
 type UserCardProps = {
   id: string;

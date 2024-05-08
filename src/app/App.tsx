@@ -1,22 +1,13 @@
 import { PageLayout } from '@/widgets';
 import './index.css';
 import { Route, Routes } from 'react-router-dom';
-import {
-  Chat,
-  DogOwnerProfile,
-  Explore,
-  ForgotPassword,
-  ResetPassword,
-  Schedule,
-  SignIn,
-  SignUp,
-  WalkerProfile,
-} from '@/pages';
+import { Chat, Explore, ForgotPassword, ResetPassword, Schedule, SignIn, SignUp } from '@/pages';
 import { Toaster } from '@/shared/ui';
 import { JobRequestInfo } from '@/pages/job-request-info';
 import WalkerForm from '@/features/create-walker/ui/CreateWalkerForm.tsx';
 import DogOwnerForm from '@/features/create-dog-owner/ui/CreateDogOwnerForm.tsx';
 import { UserProfile } from '@/pages/user-profile';
+import { Mock } from '@/app/Mock.tsx';
 
 function App() {
   return (
@@ -30,17 +21,14 @@ function App() {
 
           <Route path="/" element={<Explore />} />
           <Route path="/explore" element={<Explore />} />
-          <Route path="/user-profile" element={<WalkerProfile />} />
-          <Route path="/user-profile/:id" element={<DogOwnerProfile />} />
           <Route path="/create-walker" element={<WalkerForm />} />
-          <Route path="/walker-profile/:id" element={<WalkerProfile />} />
           <Route path="/create-dog-owner" element={<DogOwnerForm />} />
-          <Route path="/dog-owner-profile/:id" element={<DogOwnerProfile />} />
           <Route path="/job-request-info/:id" element={<JobRequestInfo />} />
           <Route path="/schedule" element={<Schedule />} />
           <Route path="/chat" element={<Chat />} />
           <Route path="*" element={<Explore />} />
-          <Route path="/mock/:id" element={<UserProfile />} />
+          <Route path="/user/:id" element={<UserProfile />} />
+          <Route path="/mock" element={<Mock />} />
         </Route>
       </Routes>
       <Toaster />
