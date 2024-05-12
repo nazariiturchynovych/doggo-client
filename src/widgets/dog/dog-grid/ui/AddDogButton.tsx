@@ -5,7 +5,7 @@ import DogForm from '@/features/create-dog/ui/CreateDogForm.tsx';
 export const AddDogButton: React.FC = () => {
   return (
     <Dialog>
-      <DialogTrigger asChild className="absolute right-3 top-3 z-20 bg-primary">
+      <DialogTrigger asChild className="absolute right-2 top-3 z-20 bg-primary">
         <Button type="button" className="rounded-full">
           +
         </Button>

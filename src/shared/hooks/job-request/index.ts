@@ -1,9 +1,10 @@
 import {
   CreateJobRequestRequestProps,
+  GetDogOwnerJobRequestsRequestProps,
   GetPageOfJobRequestsRequestProps,
   jobRequestApi,
 } from '@/shared/api/job-request-api';
-import { useInfiniteQuery, useMutation } from '@tanstack/react-query';
+import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
 import { BaseResponseWithData, PageOf } from '@/shared/api/result';
 import { JobRequest } from '@/entities/jobRequest/model/models.ts';
 
@@ -38,5 +39,12 @@ export const useGetPageOfJobRequests = (initialProps: GetPageOfJobRequestsReques
     refetchInterval: () => false,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
+  });
+};
+
+export const useGetDogOwnerJobRequests = (props: GetDogOwnerJobRequestsRequestProps) => {
+  return useQuery({
+    queryKey: ['GetDogOwnerJobRequests'],
+    queryFn: async () => await jobRequestApi.getDogOwnerJobRequests(props),
   });
 };

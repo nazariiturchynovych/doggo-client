@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import BurgerButton from '@/widgets/layouts/page-layout/ui/BurgerButton.tsx';
 import { Link, useNavigate } from 'react-router-dom';
 import { useUserStore } from '@/entities/user';
 
 export const NavMenu: React.FC = () => {
-  // const user = useUserStore((state) => state.user);
   const navigate = useNavigate();
   const isAuth = useUserStore((state) => state.isAuth);
   const user = useUserStore((state) => state.user);
@@ -16,8 +15,16 @@ export const NavMenu: React.FC = () => {
     navigate('/sign-in');
   };
 
+  useEffect(() => {
+    if (openBurgerMenu) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+  }, [openBurgerMenu]);
+
   return (
-    <div className="top-0 flex w-full items-center justify-between gap-8 border-b bg-white p-4 pl-10 lg:sticky lg:h-screen lg:max-w-60 lg:flex-col lg:items-start lg:justify-start lg:border-r">
+    <div className="top-0 flex w-full min-w-52 items-center justify-between gap-8 border-b bg-white p-4 pl-10 lg:sticky lg:h-screen lg:max-w-60 lg:flex-col lg:items-start lg:justify-start lg:border-r">
       <div>
         <Link to={'/'}>
           <img src="/src/shared/assets/images/loggo.svg" height={56} width={56} alt="" />
@@ -26,7 +33,7 @@ export const NavMenu: React.FC = () => {
       <div
         className={
           openBurgerMenu
-            ? 'absolute left-0 top-0 z-50 flex h-screen gap-20 bg-gray-50 text-xl text-black lg:flex-col'
+            ? 'absolute left-0 top-0 z-50 flex h-screen w-screen flex-col items-center justify-center gap-16 overflow-hidden bg-gray-50 text-xl text-black  md:flex-row lg:flex-col'
             : 'hidden flex-row content-start justify-between gap-8 md:flex lg:flex-col'
         }>
         {isAuth ? (

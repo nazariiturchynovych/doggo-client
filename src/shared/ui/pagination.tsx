@@ -23,7 +23,7 @@ export const Pagination: React.FC<PaginationProps> = ({
   };
 
   return (
-    <nav role="navigation" aria-label="pagination" className="mx-auto flex w-full p-2">
+    <nav role="navigation" aria-label="pagination" className="mx-auto mt-2 flex w-full sm:p-2">
       <ul className="flex flex-row items-center gap-1">
         <li className="">
           <button
@@ -81,13 +81,13 @@ export const Pagination: React.FC<PaginationProps> = ({
             </button>
           </li>
         )}
-        {currentPage != pagesCount && <MorePages />}
+        {/*{currentPage != pagesCount && <MorePages />}*/}
         <li className="">
           <button
             type={'button'}
             onClick={onClickNext}
             disabled={currentPage == pagesCount}
-            className="inline-flex h-10 items-center justify-center gap-1 whitespace-nowrap rounded-md px-4 py-2 pr-2.5 text-sm font-medium ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+            className="inline-flex h-10 items-center justify-center gap-1 whitespace-nowrap rounded-md py-2 pr-2.5 text-sm font-medium ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 sm:px-4"
             aria-label="Go to next page">
             <span>Next</span>
             <svg
@@ -110,27 +110,27 @@ export const Pagination: React.FC<PaginationProps> = ({
   );
 };
 
-const MorePages: React.FC = () => {
-  return (
-    <li className="">
-      <span aria-hidden="true" className="flex h-9 w-9 items-center justify-center">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="lucide lucide-more-horizontal h-4 w-4">
-          <circle cx="12" cy="12" r="1"></circle>
-          <circle cx="19" cy="12" r="1"></circle>
-          <circle cx="5" cy="12" r="1"></circle>
-        </svg>
-        <span className="sr-only">More pages</span>
-      </span>
-    </li>
-  );
-};
+// const MorePages: React.FC = () => {
+//   return (
+//     <li className="">
+//       <span aria-hidden="true" className="flex h-9 w-9 items-center justify-center">
+//         <svg
+//           xmlns="http://www.w3.org/2000/svg"
+//           width="24"
+//           height="24"
+//           viewBox="0 0 24 24"
+//           fill="none"
+//           stroke="currentColor"
+//           strokeWidth="2"
+//           strokeLinecap="round"
+//           strokeLinejoin="round"
+//           className="lucide lucide-more-horizontal h-4 w-4">
+//           <circle cx="12" cy="12" r="1"></circle>
+//           <circle cx="19" cy="12" r="1"></circle>
+//           <circle cx="5" cy="12" r="1"></circle>
+//         </svg>
+//         <span className="sr-only">More pages</span>
+//       </span>
+//     </li>
+//   );
+// };

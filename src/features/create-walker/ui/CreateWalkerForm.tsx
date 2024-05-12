@@ -32,11 +32,11 @@ const WalkerForm = () => {
     <Dialog>
       <div className={'flex h-full w-full items-center justify-center'}>
         <DialogTrigger asChild>
-          <Button>Become Walker</Button>
+          <Button className={'w-full'}>Become Walker</Button>
         </DialogTrigger>
       </div>
       <DialogContent className="sm:max-w-[425px]">
-        <div className="flex h-auto items-center justify-center p-5">
+        <div className="flex h-auto items-center justify-center sm:p-5">
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(handleSubmit)}

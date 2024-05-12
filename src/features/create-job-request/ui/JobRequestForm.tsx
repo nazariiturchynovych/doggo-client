@@ -36,11 +36,11 @@ const JobRequestForm = () => {
   const buttonDisabled = data?.data && data.data.length > 0;
 
   return (
-    <div className="flex h-auto items-center justify-center p-5">
+    <div className="flex h-auto items-center justify-center sm:p-5">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(handleSubmit)}
-          className="flex w-full max-w-3xl flex-col  items-center justify-center gap-9">
+          className="flex w-full max-w-3xl flex-col justify-center gap-9">
           <DogCarouselInput
             dogs={data?.data ?? []}
             onSelect={(dogId) => {
@@ -68,21 +68,19 @@ const JobRequestForm = () => {
             fieldName={'isPersonalIdentifierRequired'}
             inputType={'checkbox'}
           />
-          <SimpleFormInput
-            fieldLabel={'Describe what you want from walker:'}
-            fieldName={'paymentTo'}
-            inputType={'number'}
-          />
+          <SimpleFormInput fieldLabel={'Payment:'} fieldName={'paymentTo'} inputType={'number'} />
           <SimpleFormInput
             fieldLabel={'How old need to be walker?'}
             fieldName={'requiredAge'}
             inputType={'number'}
           />
-          <div className="flex w-full flex-col items-center justify-center gap-4">
+          <div className="flex w-full min-w-52 flex-col items-center justify-center gap-4">
             {!buttonDisabled && <FormMessage>Please create dog first</FormMessage>}
-            <Button disabled={!buttonDisabled} type="submit" className=" whitespace-nowrap">
-              {isLoadingCreate && <Loader />}
-              Create JobRequest
+            <Button
+              disabled={!buttonDisabled}
+              type="submit"
+              className=" min-w-52 whitespace-nowrap">
+              {!isLoadingCreate ? 'Create JobRequest' : <Loader color={'white'} />}
             </Button>
           </div>
         </form>

@@ -50,6 +50,7 @@ type FormInputProps = {
   textArea?: boolean;
   inputValue?: string;
   isInputDisabled?: boolean;
+  className?: string;
 };
 export const SimpleFormInput: FC<FormInputProps> = ({
   inputPlaceholder,
@@ -60,6 +61,7 @@ export const SimpleFormInput: FC<FormInputProps> = ({
   textArea,
   inputValue,
   isInputDisabled,
+  className,
 }) => {
   return (
     <FormField
@@ -72,13 +74,14 @@ export const SimpleFormInput: FC<FormInputProps> = ({
             {textArea ? (
               <Textarea
                 placeholder={inputPlaceholder ?? ''}
-                className="resize-none"
+                className={cn('resize-none', className)}
                 {...field}
                 value={inputValue}
                 disabled={isInputDisabled}
               />
             ) : (
               <Input
+                className={cn(className)}
                 placeholder={inputPlaceholder ?? ''}
                 type={inputType}
                 {...field}

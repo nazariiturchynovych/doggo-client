@@ -1,8 +1,10 @@
 import ChatList from '@/widgets/chat/chat-list/ui/ChatList.tsx';
 import { ChatMessages } from '@/widgets/chat/chat-messages/ui/ChatMessages';
 import React, { useState } from 'react';
+import { useUserStore } from '@/entities/user';
 
 export const Chat: React.FC = () => {
+  const user = useUserStore((state) => state.user);
   const [selectedChat, setSelectedChat] = useState<string | null>(null);
 
   return (
@@ -11,7 +13,7 @@ export const Chat: React.FC = () => {
         <div className="hidden h-screen w-80 bg-gray-100 p-2 dark:bg-gray-800 md:block">
           <div className="h-full overflow-y-auto">
             <div className="p-3 text-xl font-extrabold text-gray-600 dark:text-gray-200">
-              Chikaa
+              {user.firstName} {user.lastName}
             </div>
             <div className="search-chat flex p-3">
               <input

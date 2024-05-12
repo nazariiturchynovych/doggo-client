@@ -3,7 +3,7 @@ export function formatDates(timeFrom: string, timeTo: string, date: Date): strin
   return `${fromDate} From: ${timeFrom} To: ${timeTo}`;
 }
 
-function formatDate(date: Date): string {
+export function formatDate(date: Date): string {
   const year = date.getFullYear();
   const month = padZero(date.getMonth() + 1);
   const day = padZero(date.getDate());

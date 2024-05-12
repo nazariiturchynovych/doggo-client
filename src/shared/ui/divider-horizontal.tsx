@@ -5,5 +5,5 @@ type DividerHorizontalProps = {
   className?: string;
 };
 export const DividerHorizontal: React.FC<DividerHorizontalProps> = ({ className }) => {
-  return <div className={cn('flex h-full border-t', className)} />;
+  return <div className={cn('flex w-full border-t', className)} />;
 };

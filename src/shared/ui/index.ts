@@ -15,3 +15,4 @@ export * from './dialog.tsx';
 export * from './pagination.tsx';
 export * from './navigation-menu.tsx';
 export * from './skeleton.tsx';
+export * from './scroll-area.tsx';

@@ -33,7 +33,7 @@ const DogForm = () => {
   };
 
   return (
-    <div className="flex h-auto items-center justify-center p-5 shadow-md">
+    <div className="flex h-auto items-center justify-center sm:p-5">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(handleSubmit)}
@@ -61,9 +61,8 @@ const DogForm = () => {
             textArea={true}
           />
           <div className="flex items-center justify-between gap-4">
-            <Button type="submit" className="shad-button_primary whitespace-nowrap">
-              {isLoadingCreate && <Loader />}
-              Create Dog
+            <Button type="submit" className="min-w-28 whitespace-nowrap">
+              {isLoadingCreate ? <Loader color={'white'} /> : 'Add dog'}
             </Button>
           </div>
         </form>

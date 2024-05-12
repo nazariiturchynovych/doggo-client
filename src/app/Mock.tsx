@@ -1,5 +1,7 @@
 import React from 'react';
 
-export const Mock: React.FC = () => {
-  return <div>Mock</div>;
+type JobRequestListProps = {};
+
+export const Mock: React.FC<JobRequestListProps> = ({}) => {
+  return <div>s</div>;
 };

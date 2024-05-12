@@ -1,8 +1,9 @@
 import React from 'react';
 import { JobRequest } from '@/entities/jobRequest/model/models.ts';
 import { Link } from 'react-router-dom';
-import { formatDateRange } from '@/shared/lib/utils.ts';
+import { cn, formatDateRange } from '@/shared/lib/utils.ts';
 import { useGetDog } from '@/shared/hooks';
+import { useUserStore } from '@/entities/user';
 
 type JobRequestCardProps = {
   jobRequest: JobRequest;
@@ -15,6 +16,8 @@ export function getRandomIntInclusive(min: number, max: number) {
 }
 
 const JobRequestCard: React.FC<JobRequestCardProps> = ({ jobRequest }) => {
+  const user = useUserStore((state) => state.user);
+
   const startDate = new Date(jobRequest.requiredSchedule.from);
   const endDate = new Date(jobRequest.requiredSchedule.to);
 
@@ -23,12 +26,12 @@ const JobRequestCard: React.FC<JobRequestCardProps> = ({ jobRequest }) => {
   return (
     <>
       {data && (
-        <div className="flex max-h-[200px] min-h-[200px] w-full flex-col justify-between rounded-md border bg-white drop-shadow-sm">
+        <div className="flex h-[144px] w-full min-w-80 flex-col justify-between rounded-md border bg-white ">
           <Link className={'h-full'} to={`/job-request-info/${jobRequest.id}`}>
             <div className={'flex h-full min-h-[144px]'}>
               <div className={'flex max-h-[144px] w-full p-2'}>
                 <img
-                  className={'rounded-3xl'}
+                  className={'rounded-xl'}
                   height={144}
                   width={144}
                   src={`/src/shared/assets/images/dogmock${getRandomIntInclusive(1, 5)}.jpg`}
@@ -42,10 +45,10 @@ const JobRequestCard: React.FC<JobRequestCardProps> = ({ jobRequest }) => {
               </div>
             </div>
           </Link>
-          <div className={'flex'}>
+          <div className={cn('flex', user.dogOwnerId == jobRequest.dogOwnerId ? 'hidden' : '')}>
             <div
               className={
-                'flex w-full content-center justify-center gap-2 border-r border-t p-4 text-green-600'
+                'flex w-1/2 content-center justify-center gap-2 border-r border-t p-4 px-2 text-green-600'
               }>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -58,7 +61,7 @@ const JobRequestCard: React.FC<JobRequestCardProps> = ({ jobRequest }) => {
               </svg>
               Apply
             </div>
-            <div className={'flex w-full content-center justify-center gap-2 border-t  p-4'}>
+            <div className={'flex w-1/2 content-center justify-center gap-2 border-t p-4  px-2'}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"

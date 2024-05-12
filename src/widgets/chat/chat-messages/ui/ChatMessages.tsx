@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { useUserStore } from '@/entities/user';
-import { Input, Loader } from '@/shared/ui';
+import { Input } from '@/shared/ui';
 import { cn } from '@/shared/lib/utils.ts';
 import { formatTimeDifference } from '@/widgets/chat/chat-list/lib/utils.ts';
 import { signalRService } from '@/widgets/chat/chat-messages';
@@ -41,7 +41,7 @@ export const ChatMessages: React.FC<ChatBoxProps> = ({ chatId }) => {
   };
 
   if (!data || !chatId) {
-    return <Loader />;
+    return <div className={'h-full w-full text-center font-bold'}> Please choose chat</div>;
   }
 
   return (

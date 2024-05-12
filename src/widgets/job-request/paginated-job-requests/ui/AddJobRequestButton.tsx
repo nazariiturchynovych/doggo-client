@@ -9,12 +9,12 @@ type AddJobRequestButtonProps = {
 export const AddJobRequestButton: React.FC<AddJobRequestButtonProps> = ({ disabled }) => {
   return (
     <Dialog>
-      <DialogTrigger asChild className="absolute right-3 top-3 z-20 bg-primary">
+      <DialogTrigger asChild className="absolute right-2 top-3 z-20 bg-primary">
         <Button disabled={disabled} type="button" className="rounded-full">
           +
         </Button>
       </DialogTrigger>
-      <DialogContent className="z-[51] sm:max-w-[500px]">
+      <DialogContent className="z-[51]">
         <JobRequestForm />
       </DialogContent>
     </Dialog>

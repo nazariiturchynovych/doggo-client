@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Calendar, Input, Popover, PopoverContent, PopoverTrigger } from '@/shared/ui';
-import { DateTimeDisplay } from '@/features/create-job-request/ui/DateTimeDisplay.tsx';
-import { formatTime } from '@/features/create-job-request/lib/utils';
+import { formatDate, formatTime } from '@/features/create-job-request/lib/utils';
 
 type DateTimePickerProps = {
   setScheduleValue: (inputFrom: Date, inputTo: Date) => void;
@@ -28,10 +27,37 @@ export const DateTimePicker: React.FC<DateTimePickerProps> = ({ setScheduleValue
   }, [timeFrom, timeTo, date]);
 
   return (
-    <div className="z-[2000] flex h-10 w-full items-center justify-between rounded-md border p-2">
+    <div className="z-[2000] flex w-full justify-between rounded-md border p-2 sm:items-center">
       <Popover>
-        <DateTimeDisplay timeFrom={timeFrom} timeTo={timeTo} date={date!} />
-        <PopoverTrigger className="flex">
+        <div
+          className={
+            'flex w-full flex-col content-center gap-2 sm:flex-row sm:items-center sm:rounded-md'
+          }>
+          <div className={'min-h-10 w-auto content-center'}>{formatDate(date!)}</div>
+          <div className={'flex'}>
+            <div className="flex items-center gap-2 sm:justify-center">
+              <div>From:</div>
+              <Input
+                required={true}
+                type={'time'}
+                value={timeFrom}
+                className=" w-auto border p-0 sm:border-0 "
+                onChange={(event) => setTimeFrom(event.target.value)}
+              />
+            </div>
+            <div className="flex items-center gap-2 sm:justify-center">
+              <div>To:</div>
+              <Input
+                required={true}
+                type={'time'}
+                value={timeTo}
+                className=" w-auto border p-0 sm:border-0 "
+                onChange={(event) => setTimeTo(event.target.value)}
+              />
+            </div>
+          </div>
+        </div>
+        <PopoverTrigger className="flex p-2 ">
           <div>
             <img src="/src/shared/assets/icons/calendar.svg" height={30} width={30} alt={'crd'} />
           </div>

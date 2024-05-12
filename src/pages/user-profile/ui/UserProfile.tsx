@@ -7,6 +7,8 @@ import { WalkerCard } from '@/widgets/walker/walker-card/ui/WalkerCard.tsx';
 import { useNavigate, useParams } from 'react-router-dom';
 import { DogOwnerCard } from '@/widgets/dog-owner/dog-owner-card/ui/DogOnwnerCard.tsx';
 import { useGetUser } from '@/shared/hooks';
+import { PaginatedJobsRequests } from '@/widgets/job-request/paginated-job-requests/ui/PaginatedJobsRequests.tsx';
+import { DogGrid } from '@/widgets/dog/dog-grid/ui/DogGrid.tsx';
 
 export const UserProfile: React.FC = () => {
   const { id } = useParams();
@@ -23,8 +25,8 @@ export const UserProfile: React.FC = () => {
   const user = userResponse.data;
 
   return (
-    <div className={'flex h-screen p-5'}>
-      <div className={'flex w-full flex-col gap-5 rounded-md border bg-white p-5'}>
+    <div className={'flex min-h-screen p-0 sm:p-5'}>
+      <div className={'flex w-full flex-col gap-5 rounded-md border bg-white p-0 sm:p-5'}>
         <div className={'flex flex-col gap-4 md:flex-row'}>
           <UserCard user={user} />
           <DividerHorizontal className={'md:hidden'} />
@@ -36,7 +38,9 @@ export const UserProfile: React.FC = () => {
           </div>
         </div>
         <DividerHorizontal />
-        <div className={'flex'}>a</div>
+        <DogGrid dogOwnerId={user.dogOwnerId!} />
+        <DividerHorizontal />
+        <PaginatedJobsRequests dogOwnerId={user.dogOwnerId!} />
       </div>
     </div>
   );
