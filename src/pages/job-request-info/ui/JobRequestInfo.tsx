@@ -15,14 +15,17 @@ import JobForm from '@/features/create-job/ui/JobForm.tsx';
 import { useParams } from 'react-router-dom';
 import $api from '@/shared/lib/config/axios.ts';
 import { useUserStore } from '@/entities/user';
+import { useGetDog } from '@/shared/hooks';
 
 export const JobRequestInfo: React.FC = () => {
   const { id } = useParams();
   const user = useUserStore((state) => state.user);
 
-  const { data, isLoading } = useGetJobRequest({ id: id });
+  const { data } = useGetJobRequest({ id: id });
 
-  if (!data) {
+  const { data: dogData } = useGetDog({ id: data?.data.dogId || '' });
+
+  if (!data || !dogData) {
     return <Loader />;
   }
   const jobRequest = data.data;
@@ -45,7 +48,7 @@ export const JobRequestInfo: React.FC = () => {
 
   return (
     <div className="my-5 flex w-full flex-col gap-5">
-      <DogCard id={jobRequest.dogId} />
+      <DogCard dog={dogData.data} />
       <div className="flex flex-col justify-between rounded-md bg-white p-4 shadow-md">
         <div className="font-bold">Description</div>
         <div>{jobRequest.description}</div>
@@ -65,7 +68,7 @@ export const JobRequestInfo: React.FC = () => {
           <JobForm jobRequestId={jobRequest.id} />
         </DialogContent>
       </Dialog>
-      <DogOwnerCard dogOwner={jobRequest.dogOwner!} isLoading={isLoading} />
+      <DogOwnerCard dogOwnerId={jobRequest.dogOwnerId} />
       <Button onClick={onAddChatClick}>Add chat</Button>
     </div>
   );

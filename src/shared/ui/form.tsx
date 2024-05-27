@@ -51,6 +51,7 @@ type FormInputProps = {
   inputValue?: string;
   isInputDisabled?: boolean;
   className?: string;
+  formItemClassName?: string;
 };
 export const SimpleFormInput: FC<FormInputProps> = ({
   inputPlaceholder,
@@ -62,14 +63,16 @@ export const SimpleFormInput: FC<FormInputProps> = ({
   inputValue,
   isInputDisabled,
   className,
+  formItemClassName,
 }) => {
   return (
     <FormField
       control={control}
       name={fieldName}
       render={({ field }) => (
-        <FormItem>
+        <FormItem className={formItemClassName}>
           {fieldLabel && <FormLabel>{fieldLabel}</FormLabel>}
+          <FormMessage />
           <FormControl>
             {textArea ? (
               <Textarea
@@ -90,7 +93,6 @@ export const SimpleFormInput: FC<FormInputProps> = ({
               />
             )}
           </FormControl>
-          <FormMessage />
         </FormItem>
       )}
     />
@@ -132,7 +134,7 @@ const FormItem = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEl
 
     return (
       <FormItemContext.Provider value={{ id }}>
-        <div ref={ref} className={cn('space-y-2', className)} {...props} />
+        <div ref={ref} className={className} {...props} />
       </FormItemContext.Provider>
     );
   },

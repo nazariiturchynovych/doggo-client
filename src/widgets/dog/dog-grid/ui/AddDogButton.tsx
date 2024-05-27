@@ -10,7 +10,7 @@ export const AddDogButton: React.FC = () => {
           +
         </Button>
       </DialogTrigger>
-      <DialogContent className="z-[100] sm:max-w-[500px]">
+      <DialogContent className=" sm:max-w-[500px]">
         <DogForm />
       </DialogContent>
     </Dialog>

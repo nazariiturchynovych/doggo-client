@@ -9,8 +9,9 @@ import { useGetChat } from '@/shared/hooks';
 
 type ChatBoxProps = {
   chatId: string | null;
+  setSelectedChat: (id: string | null) => void;
 };
-export const ChatMessages: React.FC<ChatBoxProps> = ({ chatId }) => {
+export const ChatMessages: React.FC<ChatBoxProps> = ({ chatId, setSelectedChat }) => {
   const queryClient = useQueryClient();
   const user = useUserStore((state) => state.user);
   console.log('messages', chatId);
@@ -41,15 +42,22 @@ export const ChatMessages: React.FC<ChatBoxProps> = ({ chatId }) => {
   };
 
   if (!data || !chatId) {
-    return <div className={'h-full w-full text-center font-bold'}> Please choose chat</div>;
+    return (
+      <div className={'flex h-full w-full items-center justify-center font-bold '}>
+        {' '}
+        Please choose chat
+      </div>
+    );
   }
 
   return (
-    <div className="flex h-full w-full flex-col">
+    <div className="flex h-full w-full flex-col overflow-y-scroll">
       <div className="h-15 w-full rounded-xl rounded-bl-none rounded-br-none bg-primary p-1 shadow-md dark:bg-gray-800">
         <div className="flex items-center justify-between p-2 align-middle">
           <div className="flex items-center gap-2">
-            <div className="mr-1 rounded-full p-2 text-white hover:bg-purple-500 md:hidden">
+            <div
+              className="mr-1 rounded-full bg-primary/90 p-2 text-white hover:bg-purple-500 md:hidden"
+              onClick={() => setSelectedChat(null)}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
@@ -108,7 +116,7 @@ export const ChatMessages: React.FC<ChatBoxProps> = ({ chatId }) => {
               )}>
               {message.userId == user.id ? (
                 <div className="flex justify-end break-words">
-                  <div className="w-auto max-w-[350px] items-end rounded-xl rounded-br-none bg-white md:max-w-[280px]">
+                  <div className="w-auto max-w-[350px] items-end rounded-xl rounded-br-none bg-gray-100 md:max-w-[280px]">
                     <p className={'break-words p-2 text-black'}>{message.value}</p>
                     <div className="ml-1 p-1 text-xs text-gray-400">
                       {formatTimeDifference(message.createDate)}
@@ -116,7 +124,7 @@ export const ChatMessages: React.FC<ChatBoxProps> = ({ chatId }) => {
                   </div>
                 </div>
               ) : (
-                <div className="flex items-center break-words">
+                <div className="flex items-center break-words ">
                   <img
                     className="m-3 h-8 w-8 rounded-full"
                     src="https://cdn.pixabay.com/photo/2017/01/31/21/23/avatar-2027366_960_720.png"

@@ -79,6 +79,13 @@ export class JobRequestApi implements JobRequestApiService {
     return data;
   }
 
+  async getDogJobRequests(props: GetDogOwnerJobRequestsRequestProps) {
+    const query = `/JobRequest/dog/${props.id}/job-requests`;
+
+    const { data } = await $api.get<BaseResponseWithData<JobRequest[]>>(query);
+    return data;
+  }
+
   async getWalkerJobRequests(props: GetDogOwnerJobRequestsRequestProps) {
     const query = `/JobRequest/walker/${props.id}/job-requests`;
 

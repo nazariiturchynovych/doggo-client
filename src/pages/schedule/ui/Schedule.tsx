@@ -1,19 +1,21 @@
 import React, { useState } from 'react';
 import { Calendar, Popover, PopoverContent, PopoverTrigger } from '@/shared/ui';
-import JobCard from '@/widgets/job/job-card/ui/JobCard.tsx';
 import { useUserStore } from '@/entities/user';
-import { useGetWalkerJobs } from '@/shared/hooks';
+import { ScheduleTabs } from '@/pages/schedule/ui/ScheduleTabs.tsx';
+import { DividerHorizontal } from '@/shared/ui/divider-horizontal.tsx';
+import { WalkerJobs } from '@/pages/schedule/ui/WalkerJobs.tsx';
+import { DogJobRequests } from '@/pages/schedule/ui/DogJobRequests.tsx';
 
 export const Schedule: React.FC = () => {
   const user = useUserStore((state) => state.user);
   const [date, setDate] = useState(new Date());
-
-  const { data } = useGetWalkerJobs({ id: user.walkerId || '' });
+  const [activeTab, setActiveTab] = useState('Walk');
+  const [dogId, setDogId] = useState('');
 
   return (
-    <div className="flex sm:h-screen sm:p-5">
-      <div className=" flex w-full flex-col border border-t-0 bg-white sm:rounded-md sm:border-t">
-        <div className="flex content-center items-center justify-between border-b border-gray-300 px-6 py-4">
+    <div className="flex h-full flex-1 sm:h-screen sm:p-5">
+      <div className=" flex w-full flex-1 flex-col overflow-y-scroll border border-t-0 bg-white sm:rounded-md sm:border-t">
+        <div className="flex content-center items-center justify-between px-6 py-4">
           <div>
             <p className=" font-semibold leading-6">
               {date.toLocaleDateString('en-UK', {
@@ -49,8 +51,11 @@ export const Schedule: React.FC = () => {
             </PopoverContent>
           </Popover>
         </div>
-        <div className=" flex h-full w-full flex-col overflow-scroll p-2 dark:bg-gray-900">
-          {data && data.data && data.data.map((job) => <JobCard job={job} />)}
+        <DividerHorizontal />
+        <ScheduleTabs activeTab={activeTab} setActiveTab={setActiveTab} setDogId={setDogId} />
+        <DividerHorizontal />
+        <div className={'flex h-full'}>
+          {activeTab == 'Walk' ? <WalkerJobs id={user.walkerId!} /> : <DogJobRequests id={dogId} />}
         </div>
       </div>
     </div>

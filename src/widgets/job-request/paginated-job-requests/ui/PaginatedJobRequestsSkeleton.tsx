@@ -1,7 +1,7 @@
 import React from 'react';
 import { ScrollArea, ScrollBar } from '@/shared/ui';
 import { JobRequestCardSkeleton } from '@/widgets/job-request/job-request-card/ui/JobRequestCardSkeleton.tsx';
-import { AddJobRequestButton } from '@/widgets/job-request/paginated-job-requests/ui/AddJobRequestButton.tsx';
+import { AddJobRequestPopover } from '@/widgets/job-request/add-job-request-popover/ui/AddJobRequestPopover.tsx';
 
 export const PaginatedJobRequestsSkeleton: React.FC = () => {
   return (
@@ -15,7 +15,7 @@ export const PaginatedJobRequestsSkeleton: React.FC = () => {
         </div>
         <ScrollBar className={'mt-2 lg:hidden'} orientation="horizontal" />
       </ScrollArea>
-      <AddJobRequestButton />
+      <AddJobRequestPopover buttonText={'+'} className={'absolute right-2 top-3 z-20 bg-primary'} />
     </div>
   );
 };

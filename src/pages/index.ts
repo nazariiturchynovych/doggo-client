@@ -2,7 +2,7 @@ export { SignIn } from './_auth/sign-in/ui/SignIn.tsx';
 export { SignUp } from './_auth/sign-up/ui/SignUp.tsx';
 export { ForgotPassword } from './_auth/forgot-password/ui/ForgotPassword.tsx';
 export { ResetPassword } from './_auth/reset-password/ui/ResetPassword.tsx';
-export { Chat } from './chat/ui/Chat.tsx';
+export { Chats } from './chat/ui/Chats.tsx';
 export { Explore } from './explore/ui/Explore.tsx';
 export { JobInfo } from './job-info/ui/JobInfo.tsx';
 export { JobRequestInfo } from './job-request-info/ui/JobRequestInfo.tsx';

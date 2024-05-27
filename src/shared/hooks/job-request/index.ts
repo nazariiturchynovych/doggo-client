@@ -1,5 +1,6 @@
 import {
   CreateJobRequestRequestProps,
+  GetDogJobRequestsRequestProps,
   GetDogOwnerJobRequestsRequestProps,
   GetPageOfJobRequestsRequestProps,
   jobRequestApi,
@@ -19,8 +20,11 @@ export const useCreateJobRequest = () => {
 export const useGetPageOfJobRequests = (initialProps: GetPageOfJobRequestsRequestProps) => {
   return useInfiniteQuery<BaseResponseWithData<PageOf<JobRequest>>, unknown>({
     queryKey: ['GetPageOfJobRequest'],
-    queryFn: async ({ pageParam = initialProps }) =>
-      await jobRequestApi.getPageOfJobRequests(pageParam as GetPageOfJobRequestsRequestProps),
+    queryFn: async ({ pageParam = initialProps }) => {
+      return await jobRequestApi.getPageOfJobRequests(
+        pageParam as GetPageOfJobRequestsRequestProps,
+      );
+    },
     getNextPageParam: (lastPageData: BaseResponseWithData<PageOf<JobRequest>>) => {
       const nextPage: GetPageOfJobRequestsRequestProps = {
         nameSearchTerm: initialProps.nameSearchTerm,
@@ -39,6 +43,13 @@ export const useGetPageOfJobRequests = (initialProps: GetPageOfJobRequestsReques
     refetchInterval: () => false,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
+  });
+};
+
+export const useGetDogJobRequests = (props: GetDogJobRequestsRequestProps) => {
+  return useQuery({
+    queryKey: ['GetDogJobRequests'],
+    queryFn: async () => await jobRequestApi.getDogJobRequests(props),
   });
 };
 

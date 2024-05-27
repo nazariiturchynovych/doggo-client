@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Pagination, ScrollArea, ScrollBar } from '@/shared/ui';
 import { getPageFromArray } from '@/shared/lib/utils.ts';
 import { JobRequest } from '@/entities/jobRequest/model/models.ts';
-import { AddJobRequestButton } from '@/widgets/job-request/paginated-job-requests/ui/AddJobRequestButton.tsx';
+import { AddJobRequestPopover } from '@/widgets/job-request/add-job-request-popover/ui/AddJobRequestPopover.tsx';
 import { useGetDogOwnerJobRequests } from '@/shared/hooks';
 import JobRequestCard from '@/widgets/job-request/job-request-card/ui/JobRequestCard.tsx';
 import { PaginatedJobRequestsSkeleton } from '@/widgets/job-request/paginated-job-requests/ui/PaginatedJobRequestsSkeleton.tsx';
@@ -46,7 +46,7 @@ export const PaginatedJobsRequests: React.FC<PaginatedJobRequestsProps> = ({ dog
         setCurrentPage={setCurrentPage}
         currentPage={currentPage}
       />
-      <AddJobRequestButton />
+      <AddJobRequestPopover buttonText={'+'} className={'absolute right-2 top-3 z-20 bg-primary'} />
     </div>
   );
 };

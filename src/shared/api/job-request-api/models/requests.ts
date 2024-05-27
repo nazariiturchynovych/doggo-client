@@ -19,6 +19,9 @@ export type GetJobRequestRequestProps = {
 export type GetDogOwnerJobRequestsRequestProps = {
   id: string;
 };
+export type GetDogJobRequestsRequestProps = {
+  id: string;
+};
 
 export type GetPageOfJobRequestsRequestProps = {
   nameSearchTerm?: string;
